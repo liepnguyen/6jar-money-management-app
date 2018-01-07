@@ -10,26 +10,38 @@ export default [
 export const jars = [
 	{
 		name: 'NEC',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	},
 	{
 		name: 'PLY',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	},
 	{
 		name: 'FFA',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	},
 	{
 		name: 'LTS',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	},
 	{
 		name: 'EDU',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	},
 	{
 		name: 'GIV',
-		remaining: 300
+		incomePercentage: 20,
+		available: 400,
+		usedInThisMonth: 23
 	}
 ]

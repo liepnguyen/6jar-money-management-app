@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Item, Input, Icon, Form, Toast } from "native-base";
+import { Item, Input, Icon, Form } from "native-base";
 import { Field, reduxForm } from "redux-form";
 import Login from "../../stories/screens/Login";
 

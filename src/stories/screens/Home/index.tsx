@@ -10,17 +10,31 @@ import {
   Left,
   Body,
   Right,
-  List,
-  ListItem
+  Card,
+  CardItem,
+  View
 } from "native-base";
 
 import styles from "./styles";
+import Jar from "../../../components/Jar";
+import Report from "../../../components/Report";
+import Fab from "../../../components/Fab";
+
 export interface Props {
   navigation: any;
   list: any;
 }
-export interface State {}
+export interface State {
+  active: boolean
+}
 class Home extends React.Component<Props, State> {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      active: false
+    };
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -29,7 +43,7 @@ class Home extends React.Component<Props, State> {
             <Button transparent>
               <Icon
                 active
-                name="menu"
+                name="md-menu"
                 onPress={() => this.props.navigation.navigate("DrawerOpen")}
               />
             </Button>
@@ -37,23 +51,29 @@ class Home extends React.Component<Props, State> {
           <Body>
             <Title>Home</Title>
           </Body>
-          <Right />
+          <Right>
+            <Button transparent>
+              <Icon active name="md-more" />
+            </Button>
+          </Right>
         </Header>
         <Content>
-          <List>
-            {this.props.list.map((item, i) => (
-              <ListItem
-                key={i}
-                onPress={() =>
-                  this.props.navigation.navigate("BlankPage", {
-                    name: { item }
-                  })}
-              >
-                <Text>{item}</Text>
-              </ListItem>
-            ))}
-          </List>
+          <Report />
+          <Card>
+            <CardItem header>
+              <Text>JARS COLLECTION</Text>
+            </CardItem>
+            <CardItem>
+              <View style={{ flex: 1 }}>
+                {this.props.list.map((jar, i) => (
+                  <Jar key={`jar-${i}`} {...jar} />
+                ))}
+              </View>
+            </CardItem>
+          </Card>
+          <View style={{ marginBottom: 100 }} />
         </Content>
+        <Fab />
       </Container>
     );
   }

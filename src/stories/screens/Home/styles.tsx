@@ -15,6 +15,6 @@ const styles: any = StyleSheet.create({
 	},
 	mt: {
 		marginTop: 18,
-	},
+	}
 });
 export default styles;
