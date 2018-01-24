@@ -5,10 +5,13 @@ import { Dimensions } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
-import Login from "./container/LoginContainer";
-import Home from "./container/HomeContainer";
-import BlankPage from "./container/BlankPageContainer";
-import Sidebar from "./container/SidebarContainer";
+import Login from "./containers/Login";
+import Home from "./containers/Home";
+import BlankPage from "./containers/BlankPage";
+import Sidebar from "./containers/Sidebar";
+import AddOrEditTransaction from "./containers/AddOrEditTransaction";
+import SelectCategory from "./containers/SelectCategory";
+import EnterAmount from "./containers/EnterAmount";
 
 const Drawer = DrawerNavigator(
 	{
@@ -26,6 +29,9 @@ const App = StackNavigator(
 		Login: { screen: Login },
 		BlankPage: { screen: BlankPage },
 		Drawer: { screen: Drawer },
+		AddOrEditTransaction: { screen: AddOrEditTransaction },
+		SelectCategory: { screen: SelectCategory },
+		EnterAmount: { screen: EnterAmount },
 	},
 	{
 		initialRouteName: "Login",

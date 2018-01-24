@@ -100,6 +100,10 @@
         "source": "D:\\Projects\\6jas\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-xxxhdpi\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
+        "merged": "D:\\Projects\\6jars\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\node_modules_reactnavigation_src_views_assets_backicon.png",
+        "source": "D:\\Projects\\6jars\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\node_modules_reactnavigation_src_views_assets_backicon.png"
+    },
+    {
         "merged": "D:\\Projects\\6jas\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "D:\\Projects\\6jas\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-xxxhdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },

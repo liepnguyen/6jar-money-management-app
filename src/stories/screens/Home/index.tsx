@@ -36,6 +36,7 @@ class Home extends React.Component<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -44,7 +45,7 @@ class Home extends React.Component<Props, State> {
               <Icon
                 active
                 name="md-menu"
-                onPress={() => this.props.navigation.navigate("DrawerOpen")}
+                onPress={() => navigation.navigate("DrawerOpen")}
               />
             </Button>
           </Left>
@@ -53,7 +54,7 @@ class Home extends React.Component<Props, State> {
           </Body>
           <Right>
             <Button transparent>
-              <Icon active name="md-more" />
+              <Icon active name="md-more" onPress={() => navigation.navigate('AddOrEditTransaction', { mode: 'add' })} />
             </Button>
           </Right>
         </Header>
@@ -73,7 +74,7 @@ class Home extends React.Component<Props, State> {
           </Card>
           <View style={{ marginBottom: 100 }} />
         </Content>
-        <Fab />
+        <Fab navigation={navigation} />
       </Container>
     );
   }

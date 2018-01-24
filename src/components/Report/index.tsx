@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   View, Card, CardItem, Text, Icon
 } from "native-base";
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 export interface Props {
 }
@@ -16,47 +17,24 @@ class Jar extends React.Component<Props, State> {
             <Text>REPORT</Text>
           </CardItem>
           <CardItem>
-            <View style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Icon name='md-calendar' style={{ fontSize: 18, marginRight: 10 }} />
+            <Row style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Icon name='md-calendar' style={{ fontSize: 18 }} />
               <Text>Friday, April 6, 2017</Text>
-            </View>
+            </Row>
           </CardItem>
           <CardItem>
-            <View style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}>
-              <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-                <View style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                  <Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>15600</Text>
-                  <Text style={{ color: 'gray' }}>TOTAL AVAILABLE</Text>
-                </View>
-                <View style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                  <Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>500</Text>
-                  <Text style={{ color: 'gray' }}>USE IN THIS MONTH</Text>
-                </View>
-              </View>
-            </View>
+            <Grid>
+              <Row>
+                <Col style={{ alignItems: 'center' }}>
+                  <Row><Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>15600</Text></Row>
+                  <Row><Text style={{ color: 'gray' }}>TOTAL AVAILABLE</Text></Row>
+                </Col>
+                <Col style={{ alignItems: 'center' }}>
+                  <Row><Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>500</Text></Row>
+                  <Row><Text style={{ color: 'gray' }}>USE IN THIS MONTH</Text></Row>
+                </Col>
+              </Row>
+            </Grid>
           </CardItem>
         </Card>
       </View>

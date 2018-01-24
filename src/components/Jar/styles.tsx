@@ -17,33 +17,12 @@ const styles: any = StyleSheet.create({
     borderRadius: 8,
   },
   cardOverlayContentContainer: {
-    padding: 10, 
+    padding: 10,
     flex: 1
   },
   cardOverlayContent: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  middleRowContent: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 'auto'
-  },
-  bottomRowContent: {
-    flexDirection: 'column',
-    height: 30
-  },
-  twoRowsValueLabel: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  inlineLabelValue: {
-    flex: 1,
-    flexDirection: 'row',
     justifyContent: 'space-between'
   }
 });

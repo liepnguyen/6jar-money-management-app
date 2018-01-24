@@ -302,5 +302,9 @@
     {
         "merged": "D:\\Projects\\6jas\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\abc_list_longpressed_holo.9.png",
         "source": "D:\\Projects\\6jas\\android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\drawable-hdpi\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "D:\\Projects\\6jars\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\node_modules_reactnavigation_src_views_assets_backicon.png",
+        "source": "D:\\Projects\\6jars\\android\\app\\src\\main\\res\\drawable-hdpi\\node_modules_reactnavigation_src_views_assets_backicon.png"
     }
 ]

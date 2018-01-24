@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import {
   View, Text, H3
 } from "native-base";
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as Progress from 'react-native-progress';
 
 import styles from "./styles";
@@ -23,24 +24,34 @@ class Jar extends React.Component<Props, State> {
         <View style={styles.cardOverlay}>
           <View style={styles.cardOverlayContentContainer}>
             <View style={styles.cardOverlayContent}>
-              <H3 style={{ color: 'white' }}>{this.props.name}</H3>
-              <View style={styles.middleRowContent}>
-                <View style={styles.twoRowsValueLabel}>
-                  <Text style={{ color: 'white' }}>{this.props.incomePercentage}</Text>
-                  <Text style={{ color: 'white' }}>% INCOME</Text>
-                </View>
-                <View style={styles.twoRowsValueLabel}>
-                  <Text style={{ color: 'white' }}>{this.props.available}</Text>
-                  <Text style={{ color: 'white' }}>AVAILABLE</Text>
-                </View>
-              </View>
-              <View style={styles.bottomRowContent}>
-                <View style={styles.inlineLabelValue}>
-                  <Text style={{ color: 'white', fontSize: 12 }}>USED IN THIS MONTH</Text>
-                  <Text style={{ color: 'white', fontSize: 12 }}>{this.props.usedInThisMonth}</Text>
-                </View>
-                <Progress.Bar progress={0.3} width={null} />
-              </View>
+              <Grid style={{ justifyContent: 'space-between' }}>
+                <Row>
+                  <H3 style={{ color: 'white' }}>{this.props.name}</H3>
+                </Row>
+                <Row style={{ marginBottom: 'auto' }}>
+                  <Col style={{ alignItems: 'center' }}>
+                    <Row><Text style={{ color: 'white' }}>{this.props.incomePercentage}</Text></Row>
+                    <Row><Text style={{ color: 'white' }}>% INCOME</Text></Row>
+                  </Col>
+                  <Col style={{ alignItems: 'center' }}>
+                    <Row><Text style={{ color: 'white' }}>{this.props.available}</Text></Row>
+                    <Row><Text style={{ color: 'white' }}>AVAILABLE</Text></Row>
+                  </Col>
+                </Row>
+                <Row style={{ alignItems: 'flex-end' }}>
+                  <Grid style={{ height: 30 }}>
+                    <Row>
+                      <Col><Text style={{ color: 'white', fontSize: 12 }}>USED IN THIS MONTH</Text></Col>
+                      <Col style={{ alignItems: 'flex-end' }}>
+                        <Text style={{ color: 'white', fontSize: 12 }}>{this.props.usedInThisMonth}</Text>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col><Progress.Bar progress={0.3} width={null} /></Col>
+                    </Row>
+                  </Grid>
+                </Row>
+              </Grid>
             </View>
           </View>
         </View>
