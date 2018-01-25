@@ -17,17 +17,18 @@ import {
   Tab,
   View
 } from "native-base";
-const restaurantIcon = require("../../../../assets/categories/restaurant.png");
+const restaurantIcon = require("../../../../../assets/categories/restaurant.png");
 
 import styles from "./styles";
 
 export interface Props {
   navigation: any;
+  onCategorySelected: Function,
 }
 export interface State {
 }
 
-class AddOrEditTransaction extends React.Component<Props, State> {
+class SelectCategory extends React.Component<Props, State> {
   constructor(props, context) {
     super(props, context);
   }
@@ -74,9 +75,14 @@ class AddOrEditTransaction extends React.Component<Props, State> {
     }
   ];
 
-  renderCategoryItem(category) {
+  handleCategorySelected = (categoryId) => {
+    this.props.onCategorySelected(categoryId);
+    this.props.navigation.goBack();
+  }
+
+  renderCategoryItem = (category) => {
     return (
-      <ListItem avatar key={category.id} onPress={() => { }}>
+      <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category.id) }}>
         <Left>
           <Thumbnail small source={category.icon} />
         </Left>
@@ -117,4 +123,4 @@ class AddOrEditTransaction extends React.Component<Props, State> {
   }
 }
 
-export default AddOrEditTransaction;
+export default SelectCategory;

@@ -16,9 +16,9 @@ import {
 } from "native-base";
 
 import styles from "./styles";
-import Jar from "../../../components/Jar";
-import Report from "../../../components/Report";
-import Fab from "../../../components/Fab";
+import Jar from "../../../../components/Jar";
+import Report from "../../../../components/Report";
+import Fab from "../../../../components/Fab";
 
 export interface Props {
   navigation: any;

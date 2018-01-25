@@ -9,12 +9,10 @@ import {
   Left,
   Body,
   Right,
-  Segment,
   Text,
   Input,
   Item,
   View,
-  Picker,
   Form,
 } from "native-base";
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -22,37 +20,29 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
+import { noop } from 'lodash';
 
+import { TransactionFormField } from '../../constants';
 import styles from "./styles";
-
-enum TransactionType {
-  Income = 'income',
-  Expense = 'expense'
-}
 
 export interface Props {
   navigation: any;
+  onFormValueChanged: Function
 }
 export interface State {
-  type?: TransactionType,
   isDateTimePickerVisible: boolean
 }
 
 class AddOrEditTransaction extends React.Component<Props, State> {
+  static defaultProps = {
+    onFormValueChanged: noop,
+  }
+
   constructor(props, context) {
     super(props, context);
     this.state = {
-      type: TransactionType.Income,
       isDateTimePickerVisible: false
     };
-  }
-
-  onIncomeTypeSelected = () => {
-    this.setState({ type: TransactionType.Income });
-  }
-
-  onExpenseTypeSelected = () => {
-    this.setState({ type: TransactionType.Expense });
   }
 
   showDateTimePicker = () => {
@@ -65,7 +55,28 @@ class AddOrEditTransaction extends React.Component<Props, State> {
 
   handleDatePicked = (date) => {
     this.hideDateTimePicker();
+    this.props.onFormValueChanged(TransactionFormField.Date, date);
   };
+
+  handleCategorySelected = (categoryId) => {
+    this.props.onFormValueChanged(TransactionFormField.CategoryId, categoryId);
+  }
+
+  handleSelectCategory = () => {
+    this.props.navigation.navigate('SelectCategory', { onCategorySelected: this.handleCategorySelected });
+  }
+
+  handleAmounEntered = (amount) => {
+    this.props.onFormValueChanged(TransactionFormField.Amount, amount);
+  }
+
+  handleEnterAmount = () => {
+    this.props.navigation.navigate('EnterAmount', { onAmounEntered: this.handleAmounEntered });
+  }
+
+  handleSaveTransaction = () => {
+    this.props.navigation.goBack();
+  }
 
   render() {
     const { state } = this.props.navigation;
@@ -82,31 +93,15 @@ class AddOrEditTransaction extends React.Component<Props, State> {
           </Body>
           <Right>
             <Button transparent>
-              <Icon active name="md-more" />
+              <Icon active name="md-checkmark" onPress={this.handleSaveTransaction} />
             </Button>
           </Right>
         </Header>
-        <Segment>
-          <Button
-            first
-            active={this.state.type === TransactionType.Income}
-            onPress={this.onIncomeTypeSelected}
-          >
-            <Text>Income</Text>
-          </Button>
-          <Button
-            last
-            active={this.state.type === TransactionType.Expense}
-            onPress={this.onExpenseTypeSelected}
-          >
-            <Text>Expense</Text>
-          </Button>
-        </Segment>
         <Content>
           <View style={{ flex: 1 }}>
             <Form>
               <Item>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('EnterAmount') } style={{ flex: 1 }}>
+                <TouchableOpacity onPress={this.handleEnterAmount} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-cash' style={{ paddingRight: 8, fontSize: 24 }} />
                     <Text style={styles.textValue}>100</Text>
@@ -114,7 +109,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
                 </TouchableOpacity>
               </Item>
               <Item>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SelectCategory') } style={{ flex: 1 }}>
+                <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
                     <Text style={styles.textValue}>Select category</Text>

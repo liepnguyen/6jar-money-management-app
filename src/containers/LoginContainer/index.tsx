@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Item, Input, Icon, Form } from "native-base";
 import { Field, reduxForm } from "redux-form";
-import Login from "../../stories/screens/Login";
+import Login from "./components/Login";
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value => (value && value.length > max ? `Must be ${max} characters or less` : undefined);

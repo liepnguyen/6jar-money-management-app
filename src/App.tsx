@@ -5,13 +5,13 @@ import { Dimensions } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
-import Login from "./containers/Login";
-import Home from "./containers/Home";
-import BlankPage from "./containers/BlankPage";
-import Sidebar from "./containers/Sidebar";
-import AddOrEditTransaction from "./containers/AddOrEditTransaction";
-import SelectCategory from "./containers/SelectCategory";
-import EnterAmount from "./containers/EnterAmount";
+import Login from "./containers/LoginContainer";
+import Home from "./containers/HomeContainer";
+import BlankPage from "./containers/BlankPageContainer";
+import Sidebar from "./containers/SidebarContainer";
+import AddOrEditTransaction from "./containers/AddOrEditTransactionContainer";
+import SelectCategory from "./containers/SelectCategoryContainer";
+import EnterAmount from "./containers/EnterAmountContainer";
 
 const Drawer = DrawerNavigator(
 	{

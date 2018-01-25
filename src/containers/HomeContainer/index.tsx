@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Home from "../../stories/screens/Home";
+import Home from "./components/Home";
 import { jars } from "./data";
 import { fetchList } from "./actions";
 

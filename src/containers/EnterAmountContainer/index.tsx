@@ -1,5 +1,5 @@
 import * as React from "react";
-import EnterAmount from "../../stories/screens/EnterAmount";
+import EnterAmount from "./components/EnterAmount";
 export interface Props {
 	navigation: any,
 }
