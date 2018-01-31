@@ -1,9 +1,9 @@
 export const enum TransactionFormField {
-  Type = 'Type',
-  Date = 'Date',
-  Note = 'Note',
-  CategoryId = 'CategoryId',
-  Amount = 'Amount',
+  Type = 'type',
+  Date = 'date',
+  Note = 'note',
+  Category = 'category',
+  Amount = 'amount',
 };
 
 export const enum TransactionType {

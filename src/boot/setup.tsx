@@ -3,6 +3,7 @@ import { StyleProvider } from "native-base";
 import { Provider } from "react-redux";
 
 import configureStore from "./configureStore";
+import configurePouchDb from "./configurePouchDb";
 import App from "../App";
 import getTheme from "../theme/components";
 import variables from "../theme/variables/platform";
@@ -18,6 +19,7 @@ export default class Setup extends React.Component<Props, State> {
       isLoading: false,
       store: configureStore(() => this.setState({ isLoading: false }))
     };
+    // configurePouchDb();
   }
 
   render() {

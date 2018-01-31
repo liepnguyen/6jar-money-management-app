@@ -28,7 +28,7 @@ function bindAction(dispatch) {
 }
 
 const mapStateToProps = state => ({
-	data: state.home.list,
-	isLoading: state.home.isLoading,
+	data: state.screens.home.list,
+	isLoading: state.screens.home.isLoading,
 });
 export default connect(mapStateToProps, bindAction)(HomeContainer);

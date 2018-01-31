@@ -2,21 +2,19 @@ import * as React from "react";
 import {
   Container,
   Header,
-  Content,
   Title,
   Button,
   Icon,
   Left,
   Body,
-  Right,
   List,
   ListItem,
   Thumbnail,
   Text,
   Tabs,
   Tab,
-  View
 } from "native-base";
+import { filter, head, cloneDeep } from 'lodash';
 const restaurantIcon = require("../../../../../assets/categories/restaurant.png");
 
 import styles from "./styles";
@@ -24,59 +22,24 @@ import styles from "./styles";
 export interface Props {
   navigation: any;
   onCategorySelected: Function,
+  categories: Array<any>
 }
+
 export interface State {
 }
 
 class SelectCategory extends React.Component<Props, State> {
+  static defaultProps = {
+    categories: []
+  }
+
   constructor(props, context) {
     super(props, context);
   }
 
-  expenseCategories = [
-    {
-      id: '001',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    },
-    {
-      id: '002',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    },
-    {
-      id: '003',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    }
-  ];
-
-  incomeCategories = [
-    {
-      id: '001',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    },
-    {
-      id: '002',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    },
-    {
-      id: '003',
-      name: 'Eat',
-      description: '',
-      icon: restaurantIcon
-    }
-  ];
-
   handleCategorySelected = (categoryId) => {
-    this.props.onCategorySelected(categoryId);
+    const selectedCategory = cloneDeep(head(filter(this.props.categories, { id: categoryId })));
+    this.props.onCategorySelected(selectedCategory);
     this.props.navigation.goBack();
   }
 
@@ -84,7 +47,7 @@ class SelectCategory extends React.Component<Props, State> {
     return (
       <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category.id) }}>
         <Left>
-          <Thumbnail small source={category.icon} />
+          <Thumbnail small source={restaurantIcon} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
           <Text>{category.name}</Text>
@@ -109,12 +72,12 @@ class SelectCategory extends React.Component<Props, State> {
         <Tabs initialPage={1}>
           <Tab heading='INCOME'>
             <List>
-              {this.expenseCategories.map(this.renderCategoryItem)}
+              {this.props.categories.map(this.renderCategoryItem)}
             </List>
           </Tab>
           <Tab heading='EXPENSE'>
             <List>
-              {this.incomeCategories.map(this.renderCategoryItem)}
+              {this.props.categories.map(this.renderCategoryItem)}
             </List>
           </Tab>
         </Tabs>

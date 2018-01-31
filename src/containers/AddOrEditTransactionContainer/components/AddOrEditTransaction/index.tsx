@@ -15,7 +15,7 @@ import {
   View,
   Form,
 } from "native-base";
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Row } from 'react-native-easy-grid';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
@@ -27,7 +27,9 @@ import styles from "./styles";
 
 export interface Props {
   navigation: any;
-  onFormValueChanged: Function
+  onFormValueChanged: Function;
+  transaction: any;
+  onSave: Function,
 }
 export interface State {
   isDateTimePickerVisible: boolean
@@ -36,6 +38,7 @@ export interface State {
 class AddOrEditTransaction extends React.Component<Props, State> {
   static defaultProps = {
     onFormValueChanged: noop,
+    transaction: {}
   }
 
   constructor(props, context) {
@@ -53,13 +56,13 @@ class AddOrEditTransaction extends React.Component<Props, State> {
     this.setState({ isDateTimePickerVisible: false });
   }
 
-  handleDatePicked = (date) => {
+  handleDatePicked = (date: Date) => {
     this.hideDateTimePicker();
     this.props.onFormValueChanged(TransactionFormField.Date, date);
   };
 
-  handleCategorySelected = (categoryId) => {
-    this.props.onFormValueChanged(TransactionFormField.CategoryId, categoryId);
+  handleCategorySelected = (selectedCategory) => {
+    this.props.onFormValueChanged(TransactionFormField.Category, selectedCategory);
   }
 
   handleSelectCategory = () => {
@@ -75,11 +78,17 @@ class AddOrEditTransaction extends React.Component<Props, State> {
   }
 
   handleSaveTransaction = () => {
+    this.props.onSave(this.props.transaction);
     this.props.navigation.goBack();
+  }
+
+  handleNoteInputted = (text) => {
+    this.props.onFormValueChanged(TransactionFormField.Note, text);
   }
 
   render() {
     const { state } = this.props.navigation;
+    const { category, date } = this.props.transaction;
     return (
       <Container style={styles.container}>
         <Header>
@@ -112,19 +121,19 @@ class AddOrEditTransaction extends React.Component<Props, State> {
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>Select category</Text>
+                    <Text style={styles.textValue}>{ category ? category.name : 'Select category' }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
               <Item>
                 <Icon active name='md-list-box' />
-                <Input placeholder='Note' />
+                <Input placeholder='Note' onChangeText={this.handleNoteInputted} value={this.props.transaction.note} />
               </Item>
               <Item>
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-calendar' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>Today</Text>
+                    <Text style={styles.textValue}></Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
@@ -135,6 +144,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
           isVisible={this.state.isDateTimePickerVisible}
           onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
+          date={date}
         />
       </Container>
     );

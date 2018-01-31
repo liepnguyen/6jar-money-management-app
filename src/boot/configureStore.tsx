@@ -1,7 +1,8 @@
 import devTools from "remote-redux-devtools";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { persistStore } from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from 'redux-persist/lib/storage'
 import reducer from "../reducers";
 
 export default function configureStore(onCompletion: () => void): any {
@@ -13,7 +14,16 @@ export default function configureStore(onCompletion: () => void): any {
     })
   );
 
-  const store = createStore(reducer, enhancer);
+  storage.clear();
+
+  const persistConfig = {
+    key: 'root',
+    storage: storage,
+  }
+
+  const persistedReducer = persistReducer(persistConfig, reducer);
+
+  const store = createStore(persistedReducer, enhancer);
   persistStore(store, onCompletion);
 
   return store;
