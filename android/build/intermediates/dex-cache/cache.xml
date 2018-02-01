@@ -8,7 +8,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_a0ffc8121a6a401bf7e0f9134ebc45bdadddbd9f.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.android.support-support-v4-23.0.1_a0ffc8121a6a401bf7e0f9134ebc45bdadddbd9f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -17,7 +17,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_71f2b416d9642a62d0b476a19ca0e201ef4d7185.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\bolts-tasks-1.4.0_71f2b416d9642a62d0b476a19ca0e201ef4d7185.jar" />
     </item>
     <item
         is-multidex="false"
@@ -26,7 +26,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\jsr305-3.0.0_9377e09300ac71b97d0f5d813091ac749c750076.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\jsr305-3.0.0_9377e09300ac71b97d0f5d813091ac749c750076.jar" />
     </item>
     <item
         is-multidex="false"
@@ -35,16 +35,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_045c415ddc1996ad320e54309361f5b1cba86cb5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\Projects\6jars\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_7601af79290c4ec3ec6aa28ac7392ec39d0333aa.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-base-1.3.0_045c415ddc1996ad320e54309361f5b1cba86cb5.jar" />
     </item>
     <item
         is-multidex="false"
@@ -53,7 +44,16 @@
         optimize="true"
         revision="23.0.1"
         sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_de5afd65065af62e1440f79466785d4c9936bd47.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_de5afd65065af62e1440f79466785d4c9936bd47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Projects\6jars\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-fbcore-1.3.0_7601af79290c4ec3ec6aa28ac7392ec39d0333aa.jar" />
     </item>
     <item
         is-multidex="false"
@@ -62,7 +62,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.6.0_270ade82421c42f6a26300198e4c3aacb40dea63.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\okhttp-urlconnection-3.6.0_270ade82421c42f6a26300198e4c3aacb40dea63.jar" />
     </item>
     <item
         is-multidex="false"
@@ -71,7 +71,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="f162442a19fff13995fbd51ba414d9ee05579080">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\staticlayout-proxy-1.0_7dd79d6a46829c61036bb3cb39558731e45c3ef4.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\staticlayout-proxy-1.0_7dd79d6a46829c61036bb3cb39558731e45c3ef4.jar" />
     </item>
     <item
         is-multidex="false"
@@ -80,7 +80,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="6975da39a7040257bd51d21a231b76c915872d38">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\javax.inject-1_505ebae247be08ac973875d7113163dd9dc3ad1d.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\javax.inject-1_505ebae247be08ac973875d7113163dd9dc3ad1d.jar" />
     </item>
     <item
         is-multidex="false"
@@ -89,7 +89,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_79ab04a626ca0aa859a239f58b03d19e55621427.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-1.3.0_79ab04a626ca0aa859a239f58b03d19e55621427.jar" />
     </item>
     <item
         is-multidex="false"
@@ -98,7 +98,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_4088fc8a95e232e6c033c91bc899489ee4adfd89.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-drawee-1.3.0_4088fc8a95e232e6c033c91bc899489ee4adfd89.jar" />
     </item>
     <item
         is-multidex="false"
@@ -107,7 +107,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="8f615bca00639150c9eb6175d4b5471193f70794">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_d86d5ce7c1d9f32adfc6e7de007362c12f4824a6.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.soloader-soloader-0.1.0_d86d5ce7c1d9f32adfc6e7de007362c12f4824a6.jar" />
     </item>
     <item
         is-multidex="false"
@@ -116,7 +116,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_fd9126fbf43f9af8ab731074681e7423e10f97b6.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-fresco-1.3.0_fd9126fbf43f9af8ab731074681e7423e10f97b6.jar" />
     </item>
     <item
         is-multidex="false"
@@ -125,7 +125,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="9809e90be788acdb479b2b44e2112f3295a03068">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_c9959629e906dcee1ae2d86eea826a9f05d04f17.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\infer-annotations-4.0_c9959629e906dcee1ae2d86eea826a9f05d04f17.jar" />
     </item>
     <item
         is-multidex="false"
@@ -134,7 +134,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1_b8040ec7a7b47cc00f6a4a5ff8fd35ccb3f73ce6.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\support-annotations-23.0.1_b8040ec7a7b47cc00f6a4a5ff8fd35ccb3f73ce6.jar" />
     </item>
     <item
         is-multidex="false"
@@ -143,7 +143,16 @@
         optimize="true"
         revision="23.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_294f9a0d1910088a06fc71908f64c3adbf21f857.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.android.support-appcompat-v7-23.0.1_294f9a0d1910088a06fc71908f64c3adbf21f857.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Projects\6jars\android\app\build\intermediates\exploded-aar\ReactNativeSeed\react-native-i18n\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="89075ff9a907af843ffb29e0c882230eb331739d">
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\ReactNativeSeed-react-native-i18n-unspecified_63b2cd48466c868c7e9590440d786f96b3b3ad03.jar" />
     </item>
     <item
         is-multidex="false"
@@ -152,7 +161,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_d2313528a845af16f80761f1d48d8b94efd3f666.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\okhttp-3.6.0_d2313528a845af16f80761f1d48d8b94efd3f666.jar" />
     </item>
     <item
         is-multidex="false"
@@ -161,7 +170,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="24303e5ddb2c1210dd7e8db9dbab018f50313e48">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.50.3_f12c7d84a4fc6dbef9a1985cf2a36a2888ddf563.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.react-react-native-0.50.3_f12c7d84a4fc6dbef9a1985cf2a36a2888ddf563.jar" />
     </item>
     <item
         is-multidex="false"
@@ -170,7 +179,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_443ec6e3ef5a076c07a2825a93e5a4dc59b8d6ae.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\internal_impl-23.0.1_443ec6e3ef5a076c07a2825a93e5a4dc59b8d6ae.jar" />
     </item>
     <item
         is-multidex="false"
@@ -179,7 +188,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_3c6d5b5982f5789f5c398e7946c1e3c0803a0a81.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_3c6d5b5982f5789f5c398e7946c1e3c0803a0a81.jar" />
     </item>
     <item
         is-multidex="false"
@@ -188,7 +197,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\okio-1.13.0_782a682b94a41017ee821ecd422e842230e8a5ee.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\okio-1.13.0_782a682b94a41017ee821ecd422e842230e8a5ee.jar" />
     </item>
     <item
         is-multidex="false"
@@ -197,7 +206,7 @@
         optimize="true"
         revision="23.0.1"
         sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
-        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\ReactNativeSeed-react-native-vector-icons-unspecified_94a6f610b92a37a14ea54c5a2139e8e346fc77d1.jar" />
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\ReactNativeSeed-react-native-vector-icons-unspecified_94a6f610b92a37a14ea54c5a2139e8e346fc77d1.jar" />
     </item>
 
 </items>

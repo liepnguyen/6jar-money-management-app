@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import { noop } from 'lodash';
 
+import { strings } from '../../../../locales/i18n';
 import { TransactionFormField } from '../../constants';
 import styles from "./styles";
 
@@ -121,7 +122,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ category ? category.name : 'Select category' }</Text>
+                    <Text style={styles.textValue}>{ category ? category.name : strings('selectCategory') }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
