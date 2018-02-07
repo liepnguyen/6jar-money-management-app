@@ -14,9 +14,12 @@ export default function configureStore(onCompletion: () => void): any {
     })
   );
 
+  // storage.clear();
+
   const persistConfig = {
     key: 'root',
     storage: storage,
+    blacklist: ['screens', 'form']
   }
 
   const persistedReducer = persistReducer(persistConfig, reducer);

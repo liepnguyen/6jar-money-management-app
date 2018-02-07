@@ -14,38 +14,39 @@ import {
   Tabs,
   Tab,
 } from "native-base";
-import { filter, head, cloneDeep } from 'lodash';
-const restaurantIcon = require("../../../../../assets/categories/restaurant.png");
+import { cloneDeep } from 'lodash';
+const restaurantIcon = require("../../../../../../../assets/categories/restaurant.png");
 
 import styles from "./styles";
 
 export interface Props {
   navigation: any;
   onCategorySelected: Function,
-  categories: Array<any>
+  incomeCategories: Array<any>,
+  expenseCategories: Array<any>
 }
 
 export interface State {
 }
 
-class SelectCategory extends React.Component<Props, State> {
+class SelectCategory extends React.PureComponent<Props, State> {
   static defaultProps = {
-    categories: []
+    incomeCategories: [],
+    expenseCategories: []
   }
 
   constructor(props, context) {
     super(props, context);
   }
 
-  handleCategorySelected = (categoryId) => {
-    const selectedCategory = cloneDeep(head(filter(this.props.categories, { id: categoryId })));
-    this.props.onCategorySelected(selectedCategory);
+  handleCategorySelected = (selectedCategory) => {
+    this.props.onCategorySelected(cloneDeep(selectedCategory));
     this.props.navigation.goBack();
   }
 
   renderCategoryItem = (category) => {
     return (
-      <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category.id) }}>
+      <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category) }}>
         <Left>
           <Thumbnail small source={restaurantIcon} />
         </Left>
@@ -57,11 +58,12 @@ class SelectCategory extends React.Component<Props, State> {
   }
 
   render() {
+    const { navigation, incomeCategories, expenseCategories } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
+            <Button transparent onPress={() => navigation.goBack()}>
               <Icon name="ios-arrow-back" />
             </Button>
           </Left>
@@ -72,12 +74,12 @@ class SelectCategory extends React.Component<Props, State> {
         <Tabs initialPage={1}>
           <Tab heading='INCOME'>
             <List>
-              {this.props.categories.map(this.renderCategoryItem)}
+              {incomeCategories.map(this.renderCategoryItem)}
             </List>
           </Tab>
           <Tab heading='EXPENSE'>
             <List>
-              {this.props.categories.map(this.renderCategoryItem)}
+              {expenseCategories.map(this.renderCategoryItem)}
             </List>
           </Tab>
         </Tabs>

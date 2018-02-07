@@ -3,23 +3,21 @@ import { StyleProvider } from "native-base";
 import { Provider } from "react-redux";
 
 import configureStore from "./configureStore";
-import configurePouchDb from "./configurePouchDb";
 import App from "../App";
 import getTheme from "../theme/components";
-import variables from "../theme/variables/platform";
+import variables from "../theme/variables/material";
 export interface Props {}
 export interface State {
   store: Object;
   isLoading: boolean;
 }
-export default class Setup extends React.Component<Props, State> {
+export default class Setup extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
       store: configureStore(() => this.setState({ isLoading: false }))
     };
-    // configurePouchDb();
   }
 
   render() {

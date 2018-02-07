@@ -6,6 +6,7 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as Progress from 'react-native-progress';
 
+import I18n from '../../locales/i18n';
 import styles from "./styles";
 
 export interface Props {
@@ -16,7 +17,7 @@ export interface Props {
 }
 export interface State { }
 
-class Jar extends React.Component<Props, State> {
+class Jar extends React.PureComponent<Props, State> {
   render() {
     return (
       <View style={styles.cardImageContainer}>
@@ -43,7 +44,7 @@ class Jar extends React.Component<Props, State> {
                     <Row>
                       <Col><Text style={{ color: 'white', fontSize: 12 }}>USED IN THIS MONTH</Text></Col>
                       <Col style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ color: 'white', fontSize: 12 }}>{this.props.usedInThisMonth}</Text>
+                        <Text style={{ color: 'white', fontSize: 12 }}>{I18n.l('currency', this.props.usedInThisMonth)}</Text>
                       </Col>
                     </Row>
                     <Row>

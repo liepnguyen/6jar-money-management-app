@@ -16,18 +16,15 @@ export interface Props {
 }
 export interface State { }
 
-class Jar extends React.Component<Props, State> {
+class Jar extends React.PureComponent<Props, State> {
   render() {
     const { position, navigation } = this.props;
     return (
       <ActionButton buttonColor="rgba(231,76,60,1)" position={position}>
-        <ActionButton.Item buttonColor='#9b59b6' title="Enter Income" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add', type: 'income' }) }}>
-          <Icon name="md-log-in" style={styles.actionButtonIcon} />
+        <ActionButton.Item buttonColor='#9b59b6' title="Add Transaction" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}>
+          <Icon name="md-swap" style={styles.actionButtonIcon} />
         </ActionButton.Item>
-        <ActionButton.Item buttonColor='#3498db' title="Enter Expense" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add', type: 'expense' }) }}>
-          <Icon name="md-log-out" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-        <ActionButton.Item buttonColor='#1abc9c' title="Transactions" onPress={noop}>
+        <ActionButton.Item buttonColor='#1abc9c' title="Transactions" onPress={() => { navigation.navigate('ViewTransactions') }}>
           <Icon name="md-list-box" style={styles.actionButtonIcon} />
         </ActionButton.Item>
       </ActionButton>

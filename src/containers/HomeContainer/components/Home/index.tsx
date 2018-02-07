@@ -22,12 +22,14 @@ import Fab from "../../../../components/Fab";
 
 export interface Props {
   navigation: any;
-  list: any;
+  jars: any;
 }
+
 export interface State {
   active: boolean
 }
-class Home extends React.Component<Props, State> {
+
+class Home extends React.PureComponent<Props, State> {
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -66,7 +68,7 @@ class Home extends React.Component<Props, State> {
             </CardItem>
             <CardItem>
               <View style={{ flex: 1 }}>
-                {this.props.list.map((jar, i) => (
+                {this.props.jars.map((jar, i) => (
                   <Jar key={`jar-${i}`} {...jar} />
                 ))}
               </View>

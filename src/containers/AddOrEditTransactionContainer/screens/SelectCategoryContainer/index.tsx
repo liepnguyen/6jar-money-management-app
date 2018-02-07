@@ -2,18 +2,19 @@ import * as React from "react";
 import { createStructuredSelector } from 'reselect';
 import { connect } from "react-redux";
 import SelectCategory from "./components/SelectCategory";
-import { categoriesSelector } from '../../services/redux/category/selectors';
+import { incomeCategoriesSelector, expenseCategoriesSelector } from '../../../../services/redux/category/selectors';
 
 export interface Props {
 	navigation: any,
 	selectCategory: Function,
 	onCategorySelected: Function,
-	categories: Array<any>
+	incomeCategories: Array<any>
+	expenseCategories: Array<any>
 }
 
 export interface State {}
 
-class SelectCategoryContainer extends React.Component<Props, State> {
+class SelectCategoryContainer extends React.PureComponent<Props, State> {
 	componentWillMount() {
 		this.props = {
       ...this.props,
@@ -27,16 +28,19 @@ class SelectCategoryContainer extends React.Component<Props, State> {
 	}
 
 	render() {
+		const { navigation, incomeCategories, expenseCategories } = this.props;
 		return <SelectCategory
-			navigation={this.props.navigation}
+			navigation={navigation}
 			onCategorySelected={this.handleCategorySelected}
-			categories={this.props.categories}
+			incomeCategories={incomeCategories}
+			expenseCategories={expenseCategories}
 		/>;
 	}
 }
 
 const mapStateToProps = createStructuredSelector({
-	categories: categoriesSelector,
+	incomeCategories: incomeCategoriesSelector,
+	expenseCategories: expenseCategoriesSelector
 });
 
 export default connect(mapStateToProps)(SelectCategoryContainer);

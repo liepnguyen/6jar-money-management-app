@@ -10,8 +10,12 @@ import Home from "./containers/HomeContainer";
 import BlankPage from "./containers/BlankPageContainer";
 import Sidebar from "./containers/SidebarContainer";
 import AddOrEditTransaction from "./containers/AddOrEditTransactionContainer";
-import SelectCategory from "./containers/SelectCategoryContainer";
-import EnterAmount from "./containers/EnterAmountContainer";
+import ViewTransactions from "./containers/ViewTransactionsContainer";
+import {
+	SelectCategoryContainer,
+	SelectJarContainer,
+	EnterAmountContainer
+} from "./containers/AddOrEditTransactionContainer/screens";
 
 const Drawer = DrawerNavigator(
 	{
@@ -30,8 +34,10 @@ const App = StackNavigator(
 		BlankPage: { screen: BlankPage },
 		Drawer: { screen: Drawer },
 		AddOrEditTransaction: { screen: AddOrEditTransaction },
-		SelectCategory: { screen: SelectCategory },
-		EnterAmount: { screen: EnterAmount },
+		ViewTransactions: { screen: ViewTransactions },
+		SelectCategory: { screen: SelectCategoryContainer },
+		EnterAmount: { screen: EnterAmountContainer },
+		SelectJar: { screen: SelectJarContainer }
 	},
 	{
 		initialRouteName: "Login",

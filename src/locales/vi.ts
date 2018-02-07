@@ -1,3 +1,7 @@
 export default {
-  selectCategory: "Chọn Danh Mục"
+  selectCategory: "Chọn Nhóm",
+  selectJar: "Chọn Lọ",
+  category: {
+    ['Eat']: 'Ăn'
+  }
 }

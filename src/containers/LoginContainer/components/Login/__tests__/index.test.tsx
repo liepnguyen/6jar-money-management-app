@@ -4,7 +4,7 @@ import Login from "../index";
 import renderer from "react-test-renderer";
 
 const onLogin = jest.fn();
-const loginForm = React.Component;
+const loginForm = React.PureComponent;
 
 it("renders correctly", () => {
 	const tree = renderer.create(<Login onLogin={onLogin} loginForm={loginForm} />).toJSON();

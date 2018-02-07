@@ -25,7 +25,7 @@ const resetAction = NavigationActions.reset({
 	index: 0,
 	actions: [NavigationActions.navigate({ routeName: "Login" })],
 });
-export default class Sidebar extends React.Component<Props, State> {
+export default class Sidebar extends React.PureComponent<Props, State> {
 	render() {
 		return (
 			<Container>

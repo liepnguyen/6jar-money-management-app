@@ -4,6 +4,7 @@ export const enum TransactionFormField {
   Note = 'note',
   Category = 'category',
   Amount = 'amount',
+  Jar = 'jar'
 };
 
 export const enum TransactionType {

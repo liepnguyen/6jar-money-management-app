@@ -8,7 +8,7 @@ export interface Props {
 }
 export interface State { }
 
-class Jar extends React.Component<Props, State> {
+class Jar extends React.PureComponent<Props, State> {
   render() {
     return (
       <View>

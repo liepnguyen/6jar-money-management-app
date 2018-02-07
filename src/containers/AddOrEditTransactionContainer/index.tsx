@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import AddOrEditTransaction from "./components/AddOrEditTransaction";
-import { changeFormValue } from './actions';
+import { changeFormValue, setupNewTransaction } from './actions';
 import { saveTransaction } from '../../services/redux/transaction/actions';
 import { currentTransactionSelector } from './selectors';
 
@@ -10,18 +10,23 @@ export interface Props {
 	navigation: any;
 	changeFormValue: Function,
 	transaction: any,
-	saveTransaction: Function
+	saveTransaction: Function,
+	setupNewTransaction: Function,
 }
 export interface State {}
-class AddOrEditTransactionContainer extends React.Component<Props, State> {
+class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
+
+	componentWillMount() {
+		this.props.setupNewTransaction();
+	}
 
 	handleFormValueChanged = (field, value) => {
 		this.props.changeFormValue(field, value);
 	}
 
 	handleSaveTransaction = () => {
-		const { date, note } = this.props.transaction;
-		this.props.saveTransaction({ date, note });
+		const { id, date, note, category: { id: categoryId }, amount } = this.props.transaction;
+		this.props.saveTransaction({ id, date, note, categoryId, amount });
 	}
 	
 	render() {
@@ -37,7 +42,8 @@ class AddOrEditTransactionContainer extends React.Component<Props, State> {
 function bindAction(dispatch) {
 	return {
 		changeFormValue: (field, value) => { dispatch(changeFormValue(field, value)); },
-		saveTransaction: (transaction) => { dispatch(saveTransaction(transaction)); }
+		saveTransaction: (transaction) => { dispatch(saveTransaction(transaction)); },
+		setupNewTransaction: () => { dispatch(setupNewTransaction()) },
 	};
 }
 

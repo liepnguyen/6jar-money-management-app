@@ -1,3 +1,4 @@
 export default {
-  selectCategory: "Select Category"
+  selectCategory: 'Select Category',
+  selectJar: 'Select Jar',
 }

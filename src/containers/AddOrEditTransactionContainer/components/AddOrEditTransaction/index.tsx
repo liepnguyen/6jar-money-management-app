@@ -21,8 +21,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { noop } from 'lodash';
+import moment from 'moment';
 
-import { strings } from '../../../../locales/i18n';
+import I18n from '../../../../locales/i18n';
 import { TransactionFormField } from '../../constants';
 import styles from "./styles";
 
@@ -36,7 +37,7 @@ export interface State {
   isDateTimePickerVisible: boolean
 }
 
-class AddOrEditTransaction extends React.Component<Props, State> {
+class AddOrEditTransaction extends React.PureComponent<Props, State> {
   static defaultProps = {
     onFormValueChanged: noop,
     transaction: {}
@@ -59,7 +60,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
 
   handleDatePicked = (date: Date) => {
     this.hideDateTimePicker();
-    this.props.onFormValueChanged(TransactionFormField.Date, date);
+    this.props.onFormValueChanged(TransactionFormField.Date, +date);
   };
 
   handleCategorySelected = (selectedCategory) => {
@@ -87,9 +88,18 @@ class AddOrEditTransaction extends React.Component<Props, State> {
     this.props.onFormValueChanged(TransactionFormField.Note, text);
   }
 
+  handleSelectJar = () => {
+    this.props.navigation.navigate('SelectJar', { onJarSelected: this.handleJarSelected });
+  }
+
+  handleJarSelected = (selectedJar) => {
+    const { id, name } = selectedJar;
+    this.props.onFormValueChanged(TransactionFormField.Jar, { id, name });
+  }
+
   render() {
     const { state } = this.props.navigation;
-    const { category, date } = this.props.transaction;
+    const { category, date, jar } = this.props.transaction;
     return (
       <Container style={styles.container}>
         <Header>
@@ -122,7 +132,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ category ? category.name : strings('selectCategory') }</Text>
+                    <Text style={styles.textValue}>{ category ? I18n.t(`category.${category.name}`) : I18n.t('selectCategory') }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
@@ -134,7 +144,15 @@ class AddOrEditTransaction extends React.Component<Props, State> {
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-calendar' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}></Text>
+                    <Text style={styles.textValue}>{moment(date).format('dddd, LL')}</Text>
+                  </Row>
+                </TouchableOpacity>
+              </Item>
+              <Item>
+                <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
+                  <Row style={{ alignItems: 'center' }}>
+                    <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
+                    <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`) : I18n.t('selectJar') }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
@@ -145,7 +163,7 @@ class AddOrEditTransaction extends React.Component<Props, State> {
           isVisible={this.state.isDateTimePickerVisible}
           onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
-          date={date}
+          date={new Date(date)}
         />
       </Container>
     );

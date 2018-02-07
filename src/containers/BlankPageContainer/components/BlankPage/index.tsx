@@ -6,7 +6,7 @@ export interface Props {
 	navigation: any;
 }
 export interface State {}
-class BlankPage extends React.Component<Props, State> {
+class BlankPage extends React.PureComponent<Props, State> {
 	render() {
 		const param = this.props.navigation.state.params;
 		return (

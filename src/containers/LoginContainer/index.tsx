@@ -17,7 +17,7 @@ export interface Props {
 	valid: boolean;
 }
 export interface State {}
-class LoginForm extends React.Component<Props, State> {
+class LoginForm extends React.PureComponent<Props, State> {
 	textInput: any;
 
 	renderInput({ input, meta: { touched, error } }) {

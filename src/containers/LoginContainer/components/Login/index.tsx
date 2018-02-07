@@ -7,7 +7,7 @@ export interface Props {
 	onLogin: Function;
 }
 export interface State {}
-class Login extends React.Component<Props, State> {
+class Login extends React.PureComponent<Props, State> {
 	render() {
 		return (
 			<Container>

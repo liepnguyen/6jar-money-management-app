@@ -1,17 +1,19 @@
 import { merge } from 'lodash';
-import { Transaction, State } from './types';
+import moment from 'moment';
+import update from 'immutability-helper';
 import { SAVE_TRANSACTION } from './actions';
 
-const initialState: State = {
-	rows: <Transaction[]>[],
-	deleted: <string[]>[]
+const initialState = {
+	rows: [],
+	deleted: []
 };
 
 export default function(state = initialState, action) {
 	switch (action.type) {
 		case SAVE_TRANSACTION: {
 			const { payload: { transaction } } = action;
-			return merge({}, state, { rows: [...state.rows, transaction] });
+			const now = moment().valueOf();
+			return update(state, { rows: { $push: [{ ...transaction, createdDateTime: now }] } });
 		}
 		default:
 			return state;
