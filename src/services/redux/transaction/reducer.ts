@@ -1,4 +1,3 @@
-import { merge } from 'lodash';
 import moment from 'moment';
 import update from 'immutability-helper';
 import { SAVE_TRANSACTION } from './actions';

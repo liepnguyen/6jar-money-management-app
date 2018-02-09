@@ -24,4 +24,8 @@ if (currentLocale.indexOf('vi') === 0) {
   moment.locale('en');
 }
 
+export const formatNumber = (n) => {
+  return I18n.toNumber(+n, { strip_insignificant_zeros: true });
+}
+
 export default I18n;

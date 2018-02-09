@@ -23,6 +23,10 @@ const styles: any = StyleSheet.create({
 		height: BUTTON_HEIGHT * 2,
 		backgroundColor: '#8BC34A'
 	},
+	buttonOk: {
+		height: BUTTON_HEIGHT * 2,
+		backgroundColor: '#2196F3'
+	},
 	buttonText: {
 		fontSize: 18,
 		color: '#8BC34A'

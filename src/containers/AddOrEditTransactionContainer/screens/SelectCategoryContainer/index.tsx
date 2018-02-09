@@ -15,15 +15,9 @@ export interface Props {
 export interface State {}
 
 class SelectCategoryContainer extends React.PureComponent<Props, State> {
-	componentWillMount() {
-		this.props = {
-      ...this.props,
-      ...this.props.navigation.state.params
-    }
-	}
 
 	handleCategorySelected = (selectedCategory) => {
-		const { onCategorySelected } = this.props;
+		const { navigation: { state: { params: { onCategorySelected } } } } = this.props;
 		onCategorySelected(selectedCategory);
 	}
 

@@ -20,7 +20,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
-import { noop } from 'lodash';
+import { noop, capitalize } from 'lodash';
 import moment from 'moment';
 
 import I18n from '../../../../locales/i18n';
@@ -71,12 +71,16 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
     this.props.navigation.navigate('SelectCategory', { onCategorySelected: this.handleCategorySelected });
   }
 
-  handleAmounEntered = (amount) => {
+  handleAmountEntered = (amount) => {
     this.props.onFormValueChanged(TransactionFormField.Amount, amount);
   }
 
   handleEnterAmount = () => {
-    this.props.navigation.navigate('EnterAmount', { onAmounEntered: this.handleAmounEntered });
+    const { navigation, transaction: { amount } } = this.props;
+    navigation.navigate('EnterAmount', {
+      onAmountEntered: this.handleAmountEntered,
+      value: amount,
+    });
   }
 
   handleSaveTransaction = () => {
@@ -99,7 +103,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
 
   render() {
     const { state } = this.props.navigation;
-    const { category, date, jar } = this.props.transaction;
+    const { category, date, jar, amount } = this.props.transaction;
     return (
       <Container style={styles.container}>
         <Header>
@@ -124,7 +128,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.handleEnterAmount} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-cash' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>100</Text>
+                    <Text style={styles.textValue}>{amount}</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
@@ -144,7 +148,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-calendar' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{moment(date).format('dddd, LL')}</Text>
+                    <Text style={styles.textValue}>{capitalize(moment(date).format('dddd, LL'))}</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
