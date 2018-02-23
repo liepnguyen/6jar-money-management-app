@@ -17,7 +17,7 @@ import {
 } from "native-base";
 import { cloneDeep } from 'lodash';
 import I18n from '../../../../../../locales/i18n';
-const restaurantIcon = require("../../../../../../../assets/categories/restaurant.png");
+import { icon } from '../../../../../../resources';
 
 import styles from "./styles";
 
@@ -50,7 +50,7 @@ class SelectCategory extends React.PureComponent<Props, State> {
     return (
       <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category) }}>
         <Left>
-          <Thumbnail small source={restaurantIcon} />
+          <Thumbnail small source={icon.category[category.icon]} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
           <Text>{I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>

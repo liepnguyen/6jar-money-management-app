@@ -34,7 +34,7 @@ import moment from 'moment';
 
 import I18n, { formatCurrency, translate } from '../../../../locales/i18n';
 import styles from "./styles";
-const restaurantIcon = require("../../../../../assets/categories/restaurant.png");
+import { icon } from '../../../../resources';
 
 export interface Props {
   navigation: any;
@@ -104,7 +104,7 @@ class ViewTransactions extends React.PureComponent<Props, State> {
                   return (
                     <CardItem key={`ti_${transaction.id}`} onPress={() => { console.log(transaction); }}>
                       <Left>
-                        <Thumbnail small source={restaurantIcon} />
+                        <Thumbnail small source={icon.category[category.icon]} />
                         <Body>
                           <Text>{I18n.t(`category.${category.name}`)}</Text>
                           <Text note>{transaction.note}</Text>

@@ -14,7 +14,7 @@ export default function configureStore(onCompletion: () => void): any {
     })
   );
 
-  // storage.clear();
+  storage.clear();
 
   const persistConfig = {
     key: 'root',

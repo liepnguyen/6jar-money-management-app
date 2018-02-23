@@ -7,7 +7,7 @@ import { jarsSelector, jarReportSelector } from '../../services/redux/jar/select
 export interface Props {
 	navigation: any;
 	jars: Array<any>;
-	report: any
+	jarReport: any
 }
 
 export interface State {}
