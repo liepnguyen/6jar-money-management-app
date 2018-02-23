@@ -15,7 +15,7 @@ import {
   View
 } from "native-base";
 
-import I18n from '../../../../locales/i18n';
+import { translate } from '../../../../locales/i18n';
 import styles from "./styles";
 import Jar from "../../../../components/Jar";
 import Report from "../../../../components/Report";
@@ -24,6 +24,7 @@ import Fab from "../../../../components/Fab";
 export interface Props {
   navigation: any;
   jars: any;
+  report: any
 }
 
 export interface State {
@@ -39,7 +40,7 @@ class Home extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, report } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -62,10 +63,10 @@ class Home extends React.PureComponent<Props, State> {
           </Right>
         </Header>
         <Content>
-          <Report />
+          <Report data={report} />
           <Card>
             <CardItem header>
-              <Text>JARS COLLECTION</Text>
+              <Text>{translate('accounts_collection', { case: 'upperCase' })}</Text>
             </CardItem>
             <CardItem>
               <View style={{ flex: 1 }}>

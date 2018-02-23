@@ -29,10 +29,10 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
-import { noop, keys, sortBy, range, toNumber, flatMap, startCase } from 'lodash';
+import { keys, sortBy, range, sumBy, upperFirst } from 'lodash';
 import moment from 'moment';
 
-import I18n from '../../../../locales/i18n';
+import I18n, { formatCurrency, translate } from '../../../../locales/i18n';
 import styles from "./styles";
 const restaurantIcon = require("../../../../../assets/categories/restaurant.png");
 
@@ -60,13 +60,17 @@ class ViewTransactions extends React.PureComponent<Props, State> {
   }
 
   getTabHeading = (month) => {
-    const diffMonths = moment(month).diff(this.currentMonth, 'months');
-    if (diffMonths === 0) {
-      return 'This Month';
-    } else if (diffMonths === 1) {
-      return 'Next Month';
+    const monthInMoment = moment(month);
+    if (monthInMoment.isSame(moment(), 'month')) {
+      return translate('this_month');
+    } else if (monthInMoment.isSame(moment().add(1, 'month'), 'month')) {
+      return translate('next_month');
     }
     return month.format('MM/YYYY');
+  }
+
+  getTransactionAmount = (transaction) => {
+    return transaction.type === 'expense' ? -transaction.amount : transaction.amount;
   }
 
   renderTab = (month) => {
@@ -77,22 +81,26 @@ class ViewTransactions extends React.PureComponent<Props, State> {
       <Tab key={`t_${month.valueOf()}`} heading={this.getTabHeading(month)}>
         <Content>
           {datesInMonth.map((date) => {
+            const dateValue = date.valueOf();
+            const transactions = transactionsByDate[dateValue];
+            const totalAmount = sumBy(transactions, this.getTransactionAmount);
             return (
-              <Card key={`c_${date.valueOf()}`}>
+              <Card key={`c_${dateValue}`}>
                 <CardItem bordered onPress={() => { }}>
                   <Left>
                     <Text style={{ fontSize: 40, marginLeft: 0 }}>{date.format('DD')}</Text>
                     <Body>
-                      <Text>{date.format('dddd')}</Text>
-                      <Text note>{date.format('MMMM, YYYY')}</Text>
+                      <Text>{upperFirst(date.format('dddd'))}</Text>
+                      <Text note>{upperFirst(date.format('MMMM, YYYY'))}</Text>
                     </Body>
                   </Left>
                   <Right>
-                    <Text>{'$23'}</Text>
+                    <Text>{formatCurrency(totalAmount)}</Text>
                   </Right>
                 </CardItem>
-                {transactionsByDate[+date].map((transaction) => {
+                {transactions.map((transaction) => {
                   const category = transaction.category || {};
+                  const transactionAmount = this.getTransactionAmount(transaction);
                   return (
                     <CardItem key={`ti_${transaction.id}`} onPress={() => { console.log(transaction); }}>
                       <Left>
@@ -103,7 +111,7 @@ class ViewTransactions extends React.PureComponent<Props, State> {
                         </Body>
                       </Left>
                       <Right>
-                        <Text>{'$23'}</Text>
+                        <Text>{formatCurrency(transactionAmount)}</Text>
                       </Right>
                     </CardItem>
                   );

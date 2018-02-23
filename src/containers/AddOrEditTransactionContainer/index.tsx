@@ -27,7 +27,8 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 
 	handleSaveTransaction = () => {
 		const { id, amount, note, date, category: { id: categoryId, type }, jar: { id: jarId } } = this.props.transaction;
-		this.props.saveTransaction({ id, amount, note, date, categoryId, jarId, type });
+		const transaction = { id, amount, note, date, categoryId, type, ...type === 'expense' && { jarId } };
+		this.props.saveTransaction(transaction);
 	}
 	
 	render() {

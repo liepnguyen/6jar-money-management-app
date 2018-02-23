@@ -1,7 +1,11 @@
 export default {
   select_category: 'Select Category',
-  select_jar: 'Select Jar',
+  select_account: 'Select Account',
   note: 'Note',
+  accounts_collection: 'Accounts Collection',
+  today: 'Today',
+  this_month: 'This Month',
+  next_month: 'Next Month',
   jar: {
     necessity_account: 'Necessity',
     play_account: 'Play',

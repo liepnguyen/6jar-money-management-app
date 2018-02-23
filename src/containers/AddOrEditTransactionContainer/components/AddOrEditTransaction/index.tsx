@@ -20,10 +20,10 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
-import { noop, capitalize } from 'lodash';
+import { noop, capitalize, get } from 'lodash';
 import moment from 'moment';
 
-import I18n, { formatNumber } from '../../../../locales/i18n';
+import I18n, { formatNumber, translate } from '../../../../locales/i18n';
 import { TransactionFormField } from '../../constants';
 import styles from "./styles";
 
@@ -100,9 +100,17 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
     this.props.onFormValueChanged(TransactionFormField.Jar, selectedJar);
   }
 
+  formatTransactionDate = (date) => {
+    if (moment(date).isSame(moment(), 'day')) {
+      return translate('today');
+    }
+    return moment(date).format('dddd, LL');
+  } 
+
   render() {
     const { state } = this.props.navigation;
     const { category, date, jar, amount } = this.props.transaction;
+    const transactionType = get(category, 'type');
     return (
       <Container style={styles.container}>
         <Header>
@@ -147,18 +155,24 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-calendar' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{capitalize(moment(date).format('dddd, LL'))}</Text>
+                    <Text style={styles.textValue}>{capitalize(this.formatTransactionDate(date))}</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
-              <Item>
-                <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
-                  <Row style={{ alignItems: 'center' }}>
-                    <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`, { defaultValue: jar.name }) : I18n.t('select_jar') }</Text>
-                  </Row>
-                </TouchableOpacity>
-              </Item>
+              {
+                transactionType === 'expense'
+                  ? (
+                    <Item>
+                      <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
+                        <Row style={{ alignItems: 'center' }}>
+                          <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
+                          <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`, { defaultValue: jar.name }) : I18n.t('select_account') }</Text>
+                        </Row>
+                      </TouchableOpacity>
+                    </Item>
+                  )
+                : null
+              }
             </Form>
           </View>
         </Content>
