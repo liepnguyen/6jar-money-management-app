@@ -25,13 +25,22 @@ const isValidKeyInput = (keyValue: string, lastPart: string): boolean => {
 	return true;
 }
 
+const parseNumber = (num: number): Array<string> => {
+	const parts = [];
+	if (num < 0) {
+		parts.push('-');
+	}
+	parts.push(`${Math.abs(Math.round(num * 1000) / 1000)}`);
+	return parts;
+}
+
 const updateStateWhenCalculatorButtonPress = (state, action) => {
 	const { payload: { buttonValue } } = action;
 	const { calculator: { expressionParts } } = state;
 	const lastPart = last(expressionParts);
 	const isExpressionEmpty = expressionParts.length === 0;
 	const lastIndex = expressionParts.length - 1;
-	
+
 	let hasFinalResult = false;
 	let newExpressionParts = [...expressionParts];
 
@@ -40,14 +49,11 @@ const updateStateWhenCalculatorButtonPress = (state, action) => {
 	}
 
 	if (buttonValue === CALC_KEY.Del) {
-		if (isExpressionEmpty) return state;
-		// Remove the last char from the the last part
+		if (isExpressionEmpty) { return state };
 		const newLastPart = lastPart.slice(0, -1);
 		if (!newLastPart) {
-			// The last part is empty, so remove it from the expression
 			newExpressionParts = expressionParts.slice(0, -1);
 		} else {
-			// Assign the new last part to the expression
 			newExpressionParts[lastIndex] = newLastPart;
 		}
 	} else if (buttonValue === CALC_KEY.Clear) {
@@ -63,7 +69,7 @@ const updateStateWhenCalculatorButtonPress = (state, action) => {
 		if (OP_KEY[lastPart] || isExpressionEmpty) {
 			newExpressionParts.push(buttonValue);
 		} else if (!isExpressionEmpty) {
-			newExpressionParts[lastIndex] = `${(lastPart + buttonValue)}`;
+			newExpressionParts[lastIndex] = `${lastPart}${buttonValue}`;
 		}
 	} else if (buttonValue === CALC_KEY.Dot) {
 		if (isExpressionEmpty || OP_KEY[lastPart]) {
@@ -72,12 +78,12 @@ const updateStateWhenCalculatorButtonPress = (state, action) => {
 			newExpressionParts[lastIndex] = `${lastPart}.`;
 		}
 	} else if (buttonValue === CALC_KEY.Equal) {
-		newExpressionParts = [];
-		const result = eval(expressionParts.join('')) || 0;
-		if (result < 0) {
-			newExpressionParts.push('-');
-		}
-		newExpressionParts.push(`${Math.abs(result)}`);
+		const result = eval(
+			expressionParts
+				.map((p) => { return OP_KEY[p] ? p : `${+p}` })
+				.join('')
+		);
+		newExpressionParts = parseNumber(result);
 		hasFinalResult = true;
 	}
 	return update(state, {
@@ -95,9 +101,10 @@ export default function (state = initialState, action) {
 		}
 		case INIT_CALCULATOR: {
 			const { payload: { initialValue: { value } } } = action;
+			const expressionParts = parseNumber(value);
 			return update(state, {
 				calculator: {
-					expressionParts: { $set: [`${value || '0'}`] },
+					expressionParts: { $set: expressionParts },
 					hasFinalResult: { $set: false }
 				}
 			})

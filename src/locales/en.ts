@@ -1,4 +1,35 @@
 export default {
-  selectCategory: 'Select Category',
-  selectJar: 'Select Jar',
+  select_category: 'Select Category',
+  select_jar: 'Select Jar',
+  note: 'Note',
+  jar: {
+    necessity_account: 'Necessity',
+    play_account: 'Play',
+    financial_freedom_account: 'Financial Freedom',
+    education_account: 'Education',
+    longterm_saving_for_spending_account: 'Long-term Saving for Spending',
+    give_account: 'Give'
+  },
+  category: {
+    fees_and_charges: 'Fees & Charges',
+    insurances: 'Insurances',
+    family: 'Family',
+    education: 'Education',
+    investment: 'Investment',
+    travel: 'Travel',
+    health_and_fitness: 'Health & Fitness',
+    gifts_and_donations: 'Gifts & Donations',
+    shopping: 'Shopping',
+    friends_and_lover: 'Friend & Lover',
+    entertainment: 'Entertainment',
+    bills_and_utilities: 'Bills & Utilities',
+    transportation: 'Transportation',
+    food_and_beverage: 'Food & Beverage',
+    gifts: 'Gifts',
+    selling: 'Selling',
+    interest_money: 'Interest Money',
+    salary: 'Salary',
+    award: 'Award',
+    others: 'Others',
+  }
 }

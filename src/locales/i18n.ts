@@ -28,4 +28,8 @@ export const formatNumber = (n) => {
   return I18n.toNumber(+n, { strip_insignificant_zeros: true });
 }
 
+export const formatCurrency = (v) => {
+  return I18n.toCurrency(v);
+}
+
 export default I18n;

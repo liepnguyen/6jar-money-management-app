@@ -15,6 +15,7 @@ import {
   View
 } from "native-base";
 
+import I18n from '../../../../locales/i18n';
 import styles from "./styles";
 import Jar from "../../../../components/Jar";
 import Report from "../../../../components/Report";
@@ -68,8 +69,8 @@ class Home extends React.PureComponent<Props, State> {
             </CardItem>
             <CardItem>
               <View style={{ flex: 1 }}>
-                {this.props.jars.map((jar, i) => (
-                  <Jar key={`jar-${i}`} {...jar} />
+                {this.props.jars.map((jar) => (
+                  <Jar key={`jar-${jar.id}`} {...jar} />
                 ))}
               </View>
             </CardItem>

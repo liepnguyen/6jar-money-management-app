@@ -23,7 +23,7 @@ import {
 import { noop, capitalize } from 'lodash';
 import moment from 'moment';
 
-import I18n from '../../../../locales/i18n';
+import I18n, { formatNumber } from '../../../../locales/i18n';
 import { TransactionFormField } from '../../constants';
 import styles from "./styles";
 
@@ -97,8 +97,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
   }
 
   handleJarSelected = (selectedJar) => {
-    const { id, name } = selectedJar;
-    this.props.onFormValueChanged(TransactionFormField.Jar, { id, name });
+    this.props.onFormValueChanged(TransactionFormField.Jar, selectedJar);
   }
 
   render() {
@@ -128,7 +127,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.handleEnterAmount} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-cash' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{amount}</Text>
+                    <Text style={styles.textValue}>{formatNumber(amount)}</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
@@ -136,13 +135,13 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ category ? I18n.t(`category.${category.name}`) : I18n.t('selectCategory') }</Text>
+                    <Text style={styles.textValue}>{ category ? I18n.t(`category.${category.name}`, { defaultValue: category.name }) : I18n.t('select_category') }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
               <Item>
                 <Icon active name='md-list-box' />
-                <Input placeholder='Note' onChangeText={this.handleNoteInputted} value={this.props.transaction.note} />
+                <Input placeholder={I18n.t('note')} onChangeText={this.handleNoteInputted} value={this.props.transaction.note} />
               </Item>
               <Item>
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
@@ -156,7 +155,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                 <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
                     <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`) : I18n.t('selectJar') }</Text>
+                    <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`, { defaultValue: jar.name }) : I18n.t('select_jar') }</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>

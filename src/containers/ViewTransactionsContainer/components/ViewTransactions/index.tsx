@@ -29,7 +29,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
-import { noop, keys, sortBy, range, toNumber, flatMap } from 'lodash';
+import { noop, keys, sortBy, range, toNumber, flatMap, startCase } from 'lodash';
 import moment from 'moment';
 
 import I18n from '../../../../locales/i18n';
@@ -56,12 +56,15 @@ class ViewTransactions extends React.PureComponent<Props, State> {
   constructor(props, context) {
     super(props, context);
     this.currentMonth = moment().startOf('month');
-    this.months = range(12, -1).map((i) => { return moment(this.currentMonth).subtract(i, 'M'); });
+    this.months = range(3, -2).map((i) => { return moment(this.currentMonth).subtract(i, 'M'); });
   }
 
   getTabHeading = (month) => {
-    if (moment(month).diff(this.currentMonth) === 0) {
+    const diffMonths = moment(month).diff(this.currentMonth, 'months');
+    if (diffMonths === 0) {
       return 'This Month';
+    } else if (diffMonths === 1) {
+      return 'Next Month';
     }
     return month.format('MM/YYYY');
   }
@@ -95,7 +98,7 @@ class ViewTransactions extends React.PureComponent<Props, State> {
                       <Left>
                         <Thumbnail small source={restaurantIcon} />
                         <Body>
-                          <Text>{category.name}</Text>
+                          <Text>{I18n.t(`category.${category.name}`)}</Text>
                           <Text note>{transaction.note}</Text>
                         </Body>
                       </Left>
@@ -114,11 +117,12 @@ class ViewTransactions extends React.PureComponent<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
+            <Button transparent onPress={() => navigation.goBack()}>
               <Icon name="ios-arrow-back" />
             </Button>
           </Left>
@@ -126,12 +130,12 @@ class ViewTransactions extends React.PureComponent<Props, State> {
             <Title>Transactions</Title>
           </Body>
           <Right>
-            <Button transparent>
+            <Button transparent onPress={() => navigation.navigate('AddOrEditTransaction', { mode: 'add' })}>
               <Icon active name="md-add-circle" />
             </Button>
           </Right>
         </Header>
-        <Tabs initialPage={12} renderTabBar={() => <ScrollableTab />}>
+        <Tabs initialPage={3} renderTabBar={() => <ScrollableTab />}>
           {this.months.map(this.renderTab)}
         </Tabs>
       </Container>

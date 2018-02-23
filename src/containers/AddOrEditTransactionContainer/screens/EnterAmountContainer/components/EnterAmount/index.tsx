@@ -53,11 +53,6 @@ export default class EnterAmount extends React.PureComponent<Props, State> {
           <Body>
             <Title>Enter Amount</Title>
           </Body>
-          <Right>
-            <Button transparent>
-              <Icon active name="md-checkmark" onPress={() => { }} />
-            </Button>
-          </Right>
         </Header>
         <View style={{ flex: 1 }}>
           <Grid>

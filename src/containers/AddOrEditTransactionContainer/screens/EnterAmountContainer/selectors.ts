@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { last } from 'lodash';
+import { last, includes } from 'lodash';
 import { formatNumber } from '../../../../locales/i18n';
 import { OP_KEY } from './constants';
 
@@ -16,8 +16,10 @@ export const displayTextSelector = createSelector(
     return calculator.expressionParts.map((part) => {
       if (OP_KEY[part]) {
         return part;
-      } else if (last(part) === '.') {
-        return `${formatNumber(part.slice(0, -1))}.`;
+      } else if (includes(part, '.')) {
+        const integer = part.slice(0, part.indexOf('.'));
+        const decimal = part.slice(part.indexOf('.') + 1);
+        return `${formatNumber(integer)}.${decimal}`;
       } else {
         return formatNumber(part);
       }
@@ -27,7 +29,11 @@ export const displayTextSelector = createSelector(
 
 export const finalResultSelector = createSelector(
   calculatorSelector, (calculator) => {
-    return calculator.hasFinalResult ? eval(calculator.expressionParts.join('')) : 0;
+    return calculator.hasFinalResult ? eval(
+      calculator.expressionParts
+        .map((p) => { return OP_KEY[p] ? p : `${+p}` })
+        .join('')
+    ) : 0;
   }
 )
 

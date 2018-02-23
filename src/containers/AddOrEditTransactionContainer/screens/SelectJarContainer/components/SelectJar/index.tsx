@@ -17,6 +17,7 @@ import {
 } from "native-base";
 import { noop, cloneDeep } from 'lodash';
 
+import I18n from '../../../../../../locales/i18n';
 import styles from "./styles";
 
 export interface Props {
@@ -50,7 +51,7 @@ class SelectJar extends React.PureComponent<Props, State> {
           {/* <Thumbnail small source={restaurantIcon} /> */}
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
-          <Text>{jar.name}</Text>
+          <Text>{I18n.t(`jar.${jar.name}`)}</Text>
         </Body>
       </ListItem>
     )

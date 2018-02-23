@@ -13,8 +13,10 @@ import {
   Text,
   Tabs,
   Tab,
+  Content
 } from "native-base";
 import { cloneDeep } from 'lodash';
+import I18n from '../../../../../../locales/i18n';
 const restaurantIcon = require("../../../../../../../assets/categories/restaurant.png");
 
 import styles from "./styles";
@@ -51,7 +53,7 @@ class SelectCategory extends React.PureComponent<Props, State> {
           <Thumbnail small source={restaurantIcon} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
-          <Text>{category.name}</Text>
+          <Text>{I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>
         </Body>
       </ListItem>
     )
@@ -73,14 +75,18 @@ class SelectCategory extends React.PureComponent<Props, State> {
         </Header>
         <Tabs initialPage={1}>
           <Tab heading='INCOME'>
-            <List>
-              {incomeCategories.map(this.renderCategoryItem)}
-            </List>
+            <Content>
+              <List>
+                {incomeCategories.map(this.renderCategoryItem)}
+              </List>
+            </Content>
           </Tab>
           <Tab heading='EXPENSE'>
-            <List>
-              {expenseCategories.map(this.renderCategoryItem)}
-            </List>
+            <Content>
+              <List>
+                {expenseCategories.map(this.renderCategoryItem)}
+              </List>
+            </Content>
           </Tab>
         </Tabs>
       </Container>
