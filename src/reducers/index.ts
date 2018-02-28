@@ -8,8 +8,10 @@ import transactionReducer from '../services/redux/transaction/reducer';
 import categoryReducer from '../services/redux/category/reducer';
 import jarReducer from '../services/redux/jar/reducer';
 import enterAmountReducer from '../containers/AddOrEditTransactionContainer/screens/EnterAmountContainer/reducer';
+import realmReducer from '../utils/realm/redux/reducer';
 
 export default combineReducers({
+	realm: realmReducer,
 	form: formReducer,
 	screens: combineReducers({
 		home: homeReducer,

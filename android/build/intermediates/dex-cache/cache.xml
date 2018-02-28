@@ -156,6 +156,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\liepnguyen\.gradle\caches\modules-2\files-2.1\org.nanohttpd\nanohttpd\2.2.0\73a02117620b6cc7683a1ed6ae24c2f36e2a715\nanohttpd-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="073a02117620b6cc7683a1ed6ae24c2f36e2a715">
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\nanohttpd-2.2.0_2869a3467bd2d753261603d56425410ff2644867.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\liepnguyen\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
         jumboMode="false"
         optimize="true"
@@ -207,6 +216,15 @@
         revision="23.0.1"
         sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
         <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\release\ReactNativeSeed-react-native-vector-icons-unspecified_94a6f610b92a37a14ea54c5a2139e8e346fc77d1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Projects\6jars\android\app\build\intermediates\exploded-aar\ReactNativeSeed\realm\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="95325d0a9102aad4f0e5a1d5547d535dfceea565">
+        <dex dex="D:\Projects\6jars\android\app\build\intermediates\pre-dexed\debug\ReactNativeSeed-realm-unspecified_c8facf9df1d39c1ef5f38b53628461fa325b7d0d.jar" />
     </item>
 
 </items>

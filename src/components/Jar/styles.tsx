@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 
 const styles: any = StyleSheet.create({
   cardImageContainer: {
@@ -10,10 +10,13 @@ const styles: any = StyleSheet.create({
   cardImage: {
     flex: 1,
     borderRadius: 8,
+    alignSelf: 'stretch',
+    width: undefined,
+    height: undefined
   },
   cardOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.68)',
     borderRadius: 8,
   },
   cardOverlayContentContainer: {

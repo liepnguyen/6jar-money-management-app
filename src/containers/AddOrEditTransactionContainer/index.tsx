@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
-import { cloneDeep } from 'lodash';
 import AddOrEditTransaction from "./components/AddOrEditTransaction";
 import { changeFormValue, setupNewTransaction } from './actions';
 import { saveTransaction } from '../../services/redux/transaction/actions';
@@ -26,8 +25,8 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 	}
 
 	handleSaveTransaction = () => {
-		const { id, amount, note, date, category: { id: categoryId, type }, jar: { id: jarId } } = this.props.transaction;
-		const transaction = { id, amount, note, date, categoryId, type, ...type === 'expense' && { jarId } };
+		const { id, amount, note, date, category: { id: categoryId, type }, jar } = this.props.transaction;
+		const transaction = { id, amount, note, date, categoryId, type, ...(type === 'expense' ? { accountId: jar.id } : {}) };
 		this.props.saveTransaction(transaction);
 	}
 	
@@ -44,7 +43,7 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 function bindAction(dispatch) {
 	return {
 		changeFormValue: (field, value) => { dispatch(changeFormValue(field, value)); },
-		saveTransaction: (transaction) => { dispatch(saveTransaction(transaction)); },
+		saveTransaction: (transaction) => { dispatch(saveTransaction.start(transaction)); },
 		setupNewTransaction: () => { dispatch(setupNewTransaction()) },
 	};
 }

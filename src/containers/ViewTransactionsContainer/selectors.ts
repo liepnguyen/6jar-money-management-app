@@ -1,4 +1,4 @@
-import { filter, head, groupBy, keyBy } from 'lodash';
+import { groupBy, keyBy } from 'lodash';
 import { createSelector } from 'reselect';
 import { transactionsSelector } from '../../services/redux/transaction/selectors';
 import { categoriesSelector } from '../../services/redux/category/selectors';

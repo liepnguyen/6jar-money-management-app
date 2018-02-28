@@ -1,6 +1,6 @@
-import { merge, uniqueId } from 'lodash';
 import moment from 'moment';
 import update from 'immutability-helper';
+import uuid from 'uuid';
 
 import { CHANGE_FORM_VALUE, SETUP_NEW_TRANSACTION } from './actions';
 
@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
 		case SETUP_NEW_TRANSACTION: {
 			const now = moment().startOf('day').valueOf();
 			const newTransaction = {
-				id: uniqueId('t'),
+				id: uuid.v4(),
 				date: now,
 				amount: 0,
 				note: '',

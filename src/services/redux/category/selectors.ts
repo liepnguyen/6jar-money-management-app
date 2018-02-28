@@ -1,13 +1,15 @@
 import { createSelector } from 'reselect';
-import { filter } from 'lodash';
+import { filter, values } from 'lodash';
+import { Category } from '../../../realm/models';
+import { createRealmQueryableSelector } from '../../../utils/realm/reselect';
 
-export const categoryEntityStateSelector = (state) => { return state.entities.category; }
+const categoryQueryableSelector = createRealmQueryableSelector(Category, (categoryQueryable) => {
+  return categoryQueryable;
+});
 
-export const categoriesSelector = createSelector(
-  categoryEntityStateSelector, (category) => {
-    return category.rows;
-  }
-);
+export const categoriesSelector = createSelector(categoryQueryableSelector, (categoryQueryable) => {
+  return values(categoryQueryable);
+})
 
 export const incomeCategoriesSelector = createSelector(
   categoriesSelector, (categories) => {

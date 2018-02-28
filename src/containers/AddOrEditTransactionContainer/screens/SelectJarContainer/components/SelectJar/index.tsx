@@ -19,6 +19,7 @@ import { noop, cloneDeep } from 'lodash';
 
 import I18n from '../../../../../../locales/i18n';
 import styles from "./styles";
+import { loadIcon } from '../../../../../../resources';
 
 export interface Props {
   navigation: any;
@@ -48,7 +49,7 @@ class SelectJar extends React.PureComponent<Props, State> {
     return (
       <ListItem avatar key={`jar-${jar.id}`} onPress={() => { this.handlJarSelected(jar) }}>
         <Left>
-          {/* <Thumbnail small source={restaurantIcon} /> */}
+          <Thumbnail small source={loadIcon(jar.icon)} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
           <Text>{I18n.t(`jar.${jar.name}`)}</Text>

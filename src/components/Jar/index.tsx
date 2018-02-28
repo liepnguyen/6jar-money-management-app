@@ -6,32 +6,33 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as Progress from 'react-native-progress';
 
-import I18n, { formatCurrency } from '../../locales/i18n';
+import I18n, { formatCurrency, translate } from '../../locales/i18n';
 import styles from "./styles";
+import { loadImage } from '../../resources';
 
 export interface Props {
   name: string,
   usedInThisMonth: number,
   incomePercentage: number,
-  available: number
+  available: number,
+  avatar: string,
 }
 export interface State { }
 
 class Jar extends React.PureComponent<Props, State> {
   render() {
-    const { name, available, usedInThisMonth } = this.props;
-    const usedInThisMonthInPercentage = usedInThisMonth > 0
-      ? usedInThisMonth / (available + usedInThisMonth)
-      : 0;
+    const { name, available, usedInThisMonth, avatar } = this.props;
+    const usedInThisMonthInPercentage = (available + usedInThisMonth) !== 0
+      ? usedInThisMonth / (available + usedInThisMonth): 0;
     return (
       <View style={styles.cardImageContainer}>
-        <Image source={{ uri: 'https://www.franchiseindia.com/uploads/content/edu/art/education-858cc07046.jpg' }} style={styles.cardImage} />
+        <Image source={loadImage(avatar)} style={styles.cardImage} />
         <View style={styles.cardOverlay}>
           <View style={styles.cardOverlayContentContainer}>
             <View style={styles.cardOverlayContent}>
               <Grid style={{ justifyContent: 'space-between' }}>
                 <Row>
-                  <H3 style={{ color: 'white' }}>{I18n.t(`jar.${name}`)}</H3>
+                  <H3 style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>{translate(`jar.${name}`, { case: 'upperCase' })}</H3>
                 </Row>
                 <Row style={{ marginBottom: 'auto' }}>
                   <Col style={{ alignItems: 'center' }}>

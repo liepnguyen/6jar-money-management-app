@@ -15,17 +15,16 @@ import {
   Tab,
   Content
 } from "native-base";
-import { cloneDeep } from 'lodash';
+import { filter } from 'lodash';
 import I18n from '../../../../../../locales/i18n';
-import { icon } from '../../../../../../resources';
+import { loadIcon } from '../../../../../../resources';
 
 import styles from "./styles";
 
 export interface Props {
   navigation: any;
   onCategorySelected: Function,
-  incomeCategories: Array<any>,
-  expenseCategories: Array<any>
+  categories: Array<any>,
 }
 
 export interface State {
@@ -33,8 +32,7 @@ export interface State {
 
 class SelectCategory extends React.PureComponent<Props, State> {
   static defaultProps = {
-    incomeCategories: [],
-    expenseCategories: []
+    categories: [],
   }
 
   constructor(props, context) {
@@ -42,7 +40,7 @@ class SelectCategory extends React.PureComponent<Props, State> {
   }
 
   handleCategorySelected = (selectedCategory) => {
-    this.props.onCategorySelected(cloneDeep(selectedCategory));
+    this.props.onCategorySelected(selectedCategory);
     this.props.navigation.goBack();
   }
 
@@ -50,7 +48,7 @@ class SelectCategory extends React.PureComponent<Props, State> {
     return (
       <ListItem avatar key={category.id} onPress={() => { this.handleCategorySelected(category) }}>
         <Left>
-          <Thumbnail small source={icon.category[category.icon]} />
+          <Thumbnail small source={loadIcon(category.icon)} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
           <Text>{I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>
@@ -60,7 +58,9 @@ class SelectCategory extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { navigation, incomeCategories, expenseCategories } = this.props;
+    const { navigation, categories } = this.props;
+    const incomeCategories = filter(categories, { type: 'income' });
+    const expenseCategories = filter(categories, { type: 'expense' });
     return (
       <Container style={styles.container}>
         <Header>

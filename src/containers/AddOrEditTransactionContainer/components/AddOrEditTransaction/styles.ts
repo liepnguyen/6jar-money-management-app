@@ -8,10 +8,18 @@ const styles: any = StyleSheet.create({
 		fontSize: 17, 
 		lineHeight: 24, 
 		paddingRight: 5, 
-		paddingLeft: 5, 
-		height: 50, 
+		paddingLeft: 5,
+		height: 70, 
 		flex: 1, 
 		textAlignVertical: 'center' 
+	},
+	icon: {
+		fontSize: 32,
+		paddingLeft: 6,
+		color: '#616161'
+	},
+	greyText: {
+		color: '#616161'
 	}
 });
 export default styles;

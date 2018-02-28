@@ -14,18 +14,20 @@ import {
   Item,
   View,
   Form,
+  Thumbnail,
 } from "native-base";
 import { Row } from 'react-native-easy-grid';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
   TouchableOpacity
 } from 'react-native';
-import { noop, capitalize, get } from 'lodash';
+import { noop, capitalize, isEmpty } from 'lodash';
 import moment from 'moment';
 
 import I18n, { formatNumber, translate } from '../../../../locales/i18n';
 import { TransactionFormField } from '../../constants';
 import styles from "./styles";
+import { loadIcon } from '../../../../resources';
 
 export interface Props {
   navigation: any;
@@ -109,8 +111,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
 
   render() {
     const { state } = this.props.navigation;
-    const { category, date, jar, amount } = this.props.transaction;
-    const transactionType = get(category, 'type');
+    const { category = {}, date, jar = {}, amount } = this.props.transaction;
     return (
       <Container style={styles.container}>
         <Header>
@@ -134,7 +135,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
               <Item>
                 <TouchableOpacity onPress={this.handleEnterAmount} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
-                    <Icon active name='md-cash' style={{ paddingRight: 8, fontSize: 24 }} />
+                    <Icon active name='md-cash' style={styles.icon} />
                     <Text style={styles.textValue}>{formatNumber(amount)}</Text>
                   </Row>
                 </TouchableOpacity>
@@ -142,31 +143,39 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
               <Item>
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
-                    <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                    <Text style={styles.textValue}>{ category ? I18n.t(`category.${category.name}`, { defaultValue: category.name }) : I18n.t('select_category') }</Text>
+                    <Thumbnail small source={loadIcon(category.icon, { default: 'question_mark.png' })} />
+                    {
+                      isEmpty(category)
+                        ? <Text style={[styles.textValue, styles.greyText]}>{I18n.t('select_category')}</Text>
+                        : <Text style={styles.textValue}>{ I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>
+                    }
                   </Row>
                 </TouchableOpacity>
               </Item>
               <Item>
-                <Icon active name='md-list-box' />
-                <Input placeholder={I18n.t('note')} onChangeText={this.handleNoteInputted} value={this.props.transaction.note} />
+                <Icon active name='md-list-box' style={styles.icon} />
+                <Input style={{ height: 70 }} placeholder={I18n.t('note')} onChangeText={this.handleNoteInputted} value={this.props.transaction.note} />
               </Item>
               <Item>
                 <TouchableOpacity onPress={this.showDateTimePicker} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
-                    <Icon active name='md-calendar' style={{ paddingRight: 8, fontSize: 24 }} />
+                    <Icon active name='md-calendar' style={styles.icon} />
                     <Text style={styles.textValue}>{capitalize(this.formatTransactionDate(date))}</Text>
                   </Row>
                 </TouchableOpacity>
               </Item>
               {
-                transactionType === 'expense'
+                category.type === 'expense'
                   ? (
                     <Item>
                       <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
                         <Row style={{ alignItems: 'center' }}>
-                          <Icon active name='md-help-circle' style={{ paddingRight: 8, fontSize: 24 }} />
-                          <Text style={styles.textValue}>{ jar ? I18n.t(`jar.${jar.name}`, { defaultValue: jar.name }) : I18n.t('select_account') }</Text>
+                        <Thumbnail small source={loadIcon(jar.icon, { default: 'question_mark.png' })} />
+                        {
+                          isEmpty(jar)
+                            ? <Text style={[styles.textValue, styles.greyText]}>{I18n.t('select_account')}</Text>
+                            : <Text style={styles.textValue}>{I18n.t(`jar.${jar.name}`, { defaultValue: jar.name })}</Text>
+                        }
                         </Row>
                       </TouchableOpacity>
                     </Item>

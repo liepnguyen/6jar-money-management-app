@@ -1,26 +1,27 @@
+import { Results } from 'realm';
 import { createSelector } from 'reselect';
-import { orderBy, filter } from 'lodash';
+import { values, filter } from 'lodash';
 import moment from 'moment';
+import { Transaction } from '../../../realm/models';
+import { createRealmQueryableSelector } from '../../../utils/realm/reselect';
 
-export const transactionEntityStateSelector = (state) => { return state.entities.transaction; }
+export const transactionQuerySelector = createRealmQueryableSelector(Transaction, (transactionQueryable) => {
+  return transactionQueryable;
+});
 
-export const transactionsSelector = createSelector(
-  transactionEntityStateSelector, (transactionResource) => {
-    return orderBy(transactionResource.rows, ['date', 'createdDateTime'], ['asc', 'asc']);
-  }
-);
+export const transactionsSelector =  createSelector(transactionQuerySelector, (transactionQuery) => {
+  return values(transactionQuery);
+});
 
 export const transactionsInThisMonthSelector = createSelector(
-  transactionsSelector, (transactions) => {
+  transactionQuerySelector, (transactionQuery: Results<any>) => {
     const startOfThisMonth = moment().startOf('month').valueOf();
     const endOfThisMonth = moment().endOf('month').valueOf();
-    return filter(transactions, (transaction) => {
-      const { date } = transaction;
-      return date >= startOfThisMonth && date <= endOfThisMonth;
-    })
+    return transactionQuery
+      .filtered(`date >= $0 AND date <= $1`, startOfThisMonth, endOfThisMonth)
+      .map(r => r);
   }
 );
-
 
 export const expenseTransactionsInThisMonthSelector = createSelector(
   transactionsInThisMonthSelector, (transactions) => {
