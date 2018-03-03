@@ -2,130 +2,106 @@ import * as React from "react";
 import {
   Container,
   Header,
-  Content,
   Title,
   Button,
   Icon,
   Left,
   Body,
   Right,
-  Text,
-  Input,
-  Item,
-  View,
-  Form,
-  List,
-  ListItem,
-  Thumbnail,
-  Card,
-  CardItem,
+  ScrollableTab,
   Tabs,
   Tab,
-  ScrollableTab,
-  TabHeading
+  Text
 } from "native-base";
-import { Row } from 'react-native-easy-grid';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import {
-  TouchableOpacity
-} from 'react-native';
-import { keys, sortBy, range, sumBy, upperFirst } from 'lodash';
 import moment from 'moment';
+import { noop, findIndex } from 'lodash';
+import { View } from 'react-native';
 
-import I18n, { formatCurrency, translate } from '../../../../locales/i18n';
+import ActionButton from 'react-native-action-button';
+import { translate } from '../../../../locales/i18n';
 import styles from "./styles";
-import { loadIcon } from '../../../../resources';
+import TransactionsReport from './containers/TransactionsReport';
+import SelectTimeRangeModal from './components/SelectTimeRangeModal';
+import TopRightMenuOption from './components/TopRightMenuOption';
 
 export interface Props {
   navigation: any;
-  filter: any,
-  transactionsByDate: any
+  tabs: Array<any>;
+  loadTransactionToViewOrEdit: Function;
+  filter: any;
+  changeFilter: Function;
 }
 export interface State {
+  isMenuVisible: boolean;
 }
 
 class ViewTransactions extends React.PureComponent<Props, State> {
   static defaultProps = {
-    transactions: [],
-    transactionsByDate: {}
+    tabs: [],
+    viewOrEditTransaction: noop,
+    changeFilter: noop,
+    filter: {}
   }
 
-  currentMonth: any;
-  months: Array<any>;
+  _tab: any;
 
   constructor(props, context) {
     super(props, context);
-    this.currentMonth = moment().startOf('month');
-    this.months = range(3, -2).map((i) => { return moment(this.currentMonth).subtract(i, 'M'); });
-  }
-
-  getTabHeading = (month) => {
-    const monthInMoment = moment(month);
-    if (monthInMoment.isSame(moment(), 'month')) {
-      return translate('this_month');
-    } else if (monthInMoment.isSame(moment().add(1, 'month'), 'month')) {
-      return translate('next_month');
+    this.state = {
+      isMenuVisible: false,
     }
-    return month.format('MM/YYYY');
   }
 
-  getTransactionAmount = (transaction) => {
-    return transaction.type === 'expense' ? -transaction.amount : transaction.amount;
+  handleTransactionItemClicked = (transaction) => {
+    const { navigation, loadTransactionToViewOrEdit } = this.props;
+    loadTransactionToViewOrEdit(transaction);
+    navigation.navigate('AddOrEditTransaction', { mode: 'view' });
   }
 
-  renderTab = (month) => {
-    const { transactionsByDate } = this.props;
-    const transactionDates = sortBy(keys(transactionsByDate).map((d) => { return moment(+d); }));
-    const datesInMonth = transactionDates.filter((d) => { return moment(d).startOf('month').diff(month) === 0; });
-    return (
-      <Tab key={`t_${month.valueOf()}`} heading={this.getTabHeading(month)}>
-        <Content>
-          {datesInMonth.map((date) => {
-            const dateValue = date.valueOf();
-            const transactions = transactionsByDate[dateValue];
-            const totalAmount = sumBy(transactions, this.getTransactionAmount);
-            return (
-              <Card key={`c_${dateValue}`}>
-                <CardItem bordered onPress={() => { }}>
-                  <Left>
-                    <Text style={{ fontSize: 40, marginLeft: 0 }}>{date.format('DD')}</Text>
-                    <Body>
-                      <Text>{upperFirst(date.format('dddd'))}</Text>
-                      <Text note>{upperFirst(date.format('MMMM, YYYY'))}</Text>
-                    </Body>
-                  </Left>
-                  <Right>
-                    <Text>{formatCurrency(totalAmount)}</Text>
-                  </Right>
-                </CardItem>
-                {transactions.map((transaction) => {
-                  const category = transaction.category || {};
-                  const transactionAmount = this.getTransactionAmount(transaction);
-                  return (
-                    <CardItem key={`ti_${transaction.id}`} onPress={() => { console.log(transaction); }}>
-                      <Left>
-                        <Thumbnail small source={loadIcon(category.icon)} />
-                        <Body>
-                          <Text>{I18n.t(`category.${category.name}`)}</Text>
-                          <Text note>{transaction.note}</Text>
-                        </Body>
-                      </Left>
-                      <Right>
-                        <Text>{formatCurrency(transactionAmount)}</Text>
-                      </Right>
-                    </CardItem>
-                  );
-                })}
-              </Card>
-            )
-          })}
-        </Content>
-      </Tab>
-    );
+  getHeading = (tab) => {
+    const { type, from: fromInMilliseconds } = tab;
+    const from = moment(fromInMilliseconds);
+    const now = moment();
+    if (type === 'month') {
+      if (from.isSame(now, 'month')) {
+        return translate('this_month');
+      } else if (from.isSame(now.add(1, 'month'), 'month')) {
+        return translate('next_month');
+      }
+      return from.format('MM/YYYY');
+    } else if (type === 'day') {
+      if (from.isSame(now, 'day')) {
+        return translate('today');
+      } else if (from.isSame(now.add(1, 'day'), 'day')) {
+        return translate('tomorrow');
+      }
+      return from.format('L')
+    } else if (type === 'year') {
+      if (from.isSame(now, 'year')) {
+        return translate('this_year');
+      } else if (from.isSame(now.add(1, 'year'), 'year')) {
+        return translate('next_year');
+      }
+      return from.format('YYYY');
+    }
+    return 'unknown';
+  }
+
+  handleTimeRangeChanged = (timeRange) => {
+    this.setState({ isMenuVisible: false });
+    this.props.changeFilter({ timeRange });
+  }
+
+  handleJumpToTodayOptionSelected = () => {
+    this.setState({ isMenuVisible: false });
+    const { tabs } = this.props;
+    const now = Date.now();
+    const pageIndex = findIndex(tabs, (t => { return t.from >= now && now <= t.to }));
+    this._tab.goToPage(pageIndex - 1);
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, tabs, filter } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -138,14 +114,37 @@ class ViewTransactions extends React.PureComponent<Props, State> {
             <Title>Transactions</Title>
           </Body>
           <Right>
-            <Button transparent onPress={() => navigation.navigate('AddOrEditTransaction', { mode: 'add' })}>
-              <Icon active name="md-add-circle" />
+            <Button transparent onPress={() => { this.setState({ isMenuVisible: true }) }}>
+              <Icon name="md-more" />
+              <TopRightMenuOption
+                isVisible={this.state.isMenuVisible}
+                onTimeRangeChange={this.handleTimeRangeChanged}
+                timeRange={filter.timeRange}
+                onBackdropPress={() => { this.setState({ isMenuVisible: false }) }}
+                onJumpToTodayOptionSelected={this.handleJumpToTodayOptionSelected}
+              />
             </Button>
           </Right>
         </Header>
-        <Tabs initialPage={3} renderTabBar={() => <ScrollableTab />}>
-          {this.months.map(this.renderTab)}
+        <Tabs ref={t => { this._tab = t; }} renderTabBar={() => <ScrollableTab />}>
+          {
+            tabs.map(t => {
+              return (
+                <Tab key={`t_${t.from}_${t.to}`} heading={this.getHeading(t)}>
+                  <TransactionsReport onTransactionItemClicked={this.handleTransactionItemClicked} from={t.from} to={t.to} />
+                </Tab>
+              )
+            })
+          }
         </Tabs>
+        <ActionButton
+          buttonColor="rgba(231,76,60,1)"
+          position={'center'}
+          onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}
+        />
+        <SelectTimeRangeModal
+          isVisible={false}
+        />
       </Container>
     );
   }

@@ -1,6 +1,6 @@
 import Realm from 'realm';
 import uuid from 'uuid';
-import { range, random } from 'lodash';
+import { range, random, keyBy, keys } from 'lodash';
 import { categories, jars } from './data';
 import { Category, Jar, Transaction } from '../../realm/models';
 
@@ -33,16 +33,19 @@ export default function seed(realm: Realm) {
     console.log('Seeding jars was done', realm.objects(Jar));
 
     // seed transaction
-    const categoryIds = realm.objects<Category>(Category).map((cat) => cat.id);
+    const categoryById = keyBy(realm.objects<Category>(Category).map(cat => cat), 'id');
+    const categoryIds = keys(categoryById);
+    const jarIds = realm.objects<Jar>(Jar).map(j => j.id);
     range(0, 0).forEach(() => {
+      const category = categoryById[categoryIds[random(0, categoryIds.length - 1)]];
       realm.create(Transaction, {
         id: uuid.v4(),
         date: (new Date(random(2018, 2048), random(0, 11), random(0, 30))).valueOf(),
         amount: random(10, 20000) * 1000,
-        categoryId: categoryIds[random(0, categories.length - 1)],
-        accountId: null,
+        categoryId: category.id,
+        accountId: category.type === 'expense' ? jarIds[random(0, jarIds.length - 1)] : null,
         createdTimestamp: Date.now(),
-        type: ['income', 'expense'][random(0, 1)],
+        type: category.type,
       })
     })
   })

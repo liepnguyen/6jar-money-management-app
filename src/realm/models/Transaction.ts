@@ -9,7 +9,8 @@ export default class Transaction {
       categoryId: { type: 'string' },
       accountId: { type: 'string?' },
       createdTimestamp: { type: 'int' },
-      type: { type: 'string' }
+      type: { type: 'string' },
+      note: { type: 'string?' }
     }
   }
 
@@ -20,4 +21,5 @@ export default class Transaction {
   accountId: string;
   type: string;
   createdTimestamp: number;
+  note: string;
 }

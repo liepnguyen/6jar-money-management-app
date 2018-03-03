@@ -106,7 +106,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
     if (moment(date).isSame(moment(), 'day')) {
       return translate('today');
     }
-    return moment(date).format('dddd, LL');
+    return moment(date).format('dddd, L');
   } 
 
   render() {

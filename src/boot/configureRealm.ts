@@ -7,14 +7,14 @@ import { collectionChangedAction, initAction } from '../utils/realm/redux/action
 export default function configureRealm(store: Store<{}>) {
   const realm = new Realm({
     schema: [Transaction, Category, Jar],
-    schemaVersion: 11,
+    schemaVersion: 13,
     migration: (oldRealm, newRealm) => {
       newRealm.deleteModel(Transaction.schema.name);
       newRealm.deleteModel(Category.schema.name);
     }
   });
   
-  seed(realm);
+  // seed(realm);
 
   // Configure to use along with redux
   store.dispatch(

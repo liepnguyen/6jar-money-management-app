@@ -2,6 +2,8 @@ import moment from 'moment';
 import update from 'immutability-helper';
 import uuid from 'uuid';
 
+import { loadTransactionToViewOrEdit } from '../ViewTransactionsContainer/actions';
+
 import { CHANGE_FORM_VALUE, SETUP_NEW_TRANSACTION } from './actions';
 
 const initialState = {
@@ -24,6 +26,9 @@ export default function(state = initialState, action) {
 			}
 			return update(state, { currentTransaction: { $set: newTransaction } });
 		}
+		case loadTransactionToViewOrEdit.EXECUTE:
+			const transaction = action.payload;
+			return update(state, { currentTransaction: { $set: transaction } });
 		default:
 			return state;
 	}

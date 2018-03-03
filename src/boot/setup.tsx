@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleProvider } from "native-base";
 import { Provider } from "react-redux";
 import { Store } from "redux";
+import { MenuProvider } from 'react-native-popup-menu';
 import configureStore from "./configureStore";
 import configureRealm from "./configureRealm";
 import { RealmProvider } from '../utils/realm';
@@ -9,6 +10,7 @@ import App from "../App";
 import getTheme from "../theme/components";
 import variables from "../theme/variables/material";
 import storage from '../storage';
+
 export interface Props {}
 export interface State {
   store: Store<{}>;
@@ -30,9 +32,9 @@ export default class Setup extends React.PureComponent<Props, State> {
     return (
       <StyleProvider style={getTheme(variables)}>
         <Provider store={this.state.store}>
-          <RealmProvider realm={storage.getRealmInstance()}>
+          <MenuProvider>
             <App />
-          </RealmProvider>
+          </MenuProvider>
         </Provider>
       </StyleProvider>
     );

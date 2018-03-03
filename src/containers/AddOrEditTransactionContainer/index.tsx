@@ -17,7 +17,10 @@ export interface State {}
 class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 
 	componentWillMount() {
-		this.props.setupNewTransaction();
+		const { state } = this.props.navigation;
+		if (state.params.mode === 'add') {
+			this.props.setupNewTransaction();
+		}
 	}
 
 	handleFormValueChanged = (field, value) => {
@@ -26,7 +29,7 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 
 	handleSaveTransaction = () => {
 		const { id, amount, note, date, category: { id: categoryId, type }, jar } = this.props.transaction;
-		const transaction = { id, amount, note, date, categoryId, type, ...(type === 'expense' ? { accountId: jar.id } : {}) };
+		const transaction = { id, amount, note, date, categoryId, type, accountId: type === 'expense' ? jar.id : null };
 		this.props.saveTransaction(transaction);
 	}
 	

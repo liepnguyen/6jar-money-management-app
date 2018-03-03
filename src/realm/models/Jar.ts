@@ -11,4 +11,6 @@ export default class Jar {
       avatar: { type: 'string' }
     }
   }
+
+  id: string;
 }

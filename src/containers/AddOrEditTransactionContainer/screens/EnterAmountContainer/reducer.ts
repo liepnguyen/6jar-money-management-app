@@ -78,19 +78,23 @@ const updateStateWhenCalculatorButtonPress = (state, action) => {
 			newExpressionParts[lastIndex] = `${lastPart}.`;
 		}
 	} else if (buttonValue === CALC_KEY.Equal) {
-		const result = eval(
-			expressionParts
-				.map((p) => { return OP_KEY[p] ? p : `${+p}` })
-				.join('')
-		);
-		newExpressionParts = parseNumber(result);
-		hasFinalResult = true;
+		let result;
+		try {
+			result = eval(
+				expressionParts
+					.map((p) => { return OP_KEY[p] ? p : `${+p}` })
+					.join('')
+			);
+			if (!isNaN(result)) {
+				newExpressionParts = parseNumber(result);
+				hasFinalResult = true;
+			}
+		} catch {
+			hasFinalResult = false;
+		}
 	}
 	return update(state, {
-		calculator: {
-			expressionParts: { $set: newExpressionParts },
-			hasFinalResult: { $set: hasFinalResult }
-		}
+		calculator: { $merge: { expressionParts: newExpressionParts, hasFinalResult } }
 	});
 }
 
@@ -103,11 +107,8 @@ export default function (state = initialState, action) {
 			const { payload: { initialValue: { value } } } = action;
 			const expressionParts = parseNumber(value);
 			return update(state, {
-				calculator: {
-					expressionParts: { $set: expressionParts },
-					hasFinalResult: { $set: false }
-				}
-			})
+				calculator: { $merge: { expressionParts, hasFinalResult: false } }
+			});
 		}
 		default:
 			return state;

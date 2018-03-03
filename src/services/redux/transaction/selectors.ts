@@ -1,16 +1,12 @@
 import { Results } from 'realm';
 import { createSelector } from 'reselect';
-import { values, filter } from 'lodash';
+import { filter } from 'lodash';
 import moment from 'moment';
 import { Transaction } from '../../../realm/models';
 import { createRealmQueryableSelector } from '../../../utils/realm/reselect';
 
 export const transactionQuerySelector = createRealmQueryableSelector(Transaction, (transactionQueryable) => {
   return transactionQueryable;
-});
-
-export const transactionsSelector =  createSelector(transactionQuerySelector, (transactionQuery) => {
-  return values(transactionQuery);
 });
 
 export const transactionsInThisMonthSelector = createSelector(
