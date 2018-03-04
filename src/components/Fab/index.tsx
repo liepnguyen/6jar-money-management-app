@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Icon } from "native-base";
-import { noop } from 'lodash';
 import ActionButton from 'react-native-action-button';
+import PropTypes from 'prop-types';
+import variable from '../../theme/variables';
 
 import styles from "./styles";
 
@@ -16,15 +17,26 @@ export interface Props {
 }
 export interface State { }
 
-class Jar extends React.PureComponent<Props, State> {
+class Fab extends React.PureComponent<Props, State> {
+  static contextTypes = {
+    style: PropTypes.object
+  }
+
+  constructor(props, context) {
+    super(props, context);
+  }
+
   render() {
     const { position, navigation } = this.props;
     return (
-      <ActionButton buttonColor="rgba(231,76,60,1)" position={position}>
-        <ActionButton.Item buttonColor='#9b59b6' title="Add Transaction" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}>
+      <ActionButton
+        renderIcon={() => <Icon name="md-star-outline" style={{ color: variable.inverseTextColor }} />}
+        buttonColor={variable.brandSuccess}
+        position={position}>
+        <ActionButton.Item buttonColor={variable.brandPrimary} title="Add Transaction" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}>
           <Icon name="md-swap" style={styles.actionButtonIcon} />
         </ActionButton.Item>
-        <ActionButton.Item buttonColor='#1abc9c' title="Transactions" onPress={() => { navigation.navigate('ViewTransactions') }}>
+        <ActionButton.Item buttonColor={variable.brandInfo} title="Transactions" onPress={() => { navigation.navigate('ViewTransactions') }}>
           <Icon name="md-list-box" style={styles.actionButtonIcon} />
         </ActionButton.Item>
       </ActionButton>
@@ -37,4 +49,4 @@ class Jar extends React.PureComponent<Props, State> {
   }
 }
 
-export default Jar;
+export default Fab;

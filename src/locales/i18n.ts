@@ -37,6 +37,9 @@ export const translate = (key, option: { case?: string } = {}) => {
   if (option.case === 'upperCase') {
     return value.toUpperCase();
   }
+  if (option.case === 'lowerCase') {
+    return value.toLowerCase();
+  }
   return value;
 }
 

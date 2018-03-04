@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import AddOrEditTransaction from "./components/AddOrEditTransaction";
 import { changeFormValue, setupNewTransaction } from './actions';
-import { saveTransaction } from '../../services/redux/transaction/actions';
+import { saveTransaction, deleteTransaction } from '../../services/redux/transaction/actions';
 import { currentTransactionSelector } from './selectors';
 
 export interface Props {
@@ -12,6 +12,7 @@ export interface Props {
 	transaction: any,
 	saveTransaction: Function,
 	setupNewTransaction: Function,
+	deleteTransaction: Function,
 }
 export interface State {}
 class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
@@ -32,6 +33,10 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 		const transaction = { id, amount, note, date, categoryId, type, accountId: type === 'expense' ? jar.id : null };
 		this.props.saveTransaction(transaction);
 	}
+
+	handleDeleteTransaction = (transaction) => {
+		this.props.deleteTransaction(transaction);
+	}
 	
 	render() {
 		return <AddOrEditTransaction 
@@ -39,6 +44,7 @@ class AddOrEditTransactionContainer extends React.PureComponent<Props, State> {
 			onFormValueChanged={this.handleFormValueChanged}
 			transaction={this.props.transaction}
 			onSave={this.handleSaveTransaction}
+			onDelete={this.handleDeleteTransaction}
 		/>;
 	}
 }
@@ -47,6 +53,7 @@ function bindAction(dispatch) {
 	return {
 		changeFormValue: (field, value) => { dispatch(changeFormValue(field, value)); },
 		saveTransaction: (transaction) => { dispatch(saveTransaction.start(transaction)); },
+		deleteTransaction: (transaction) => { dispatch(deleteTransaction.start(transaction)); },
 		setupNewTransaction: () => { dispatch(setupNewTransaction()) },
 	};
 }

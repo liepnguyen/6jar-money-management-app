@@ -7,14 +7,14 @@ import { collectionChangedAction, initAction } from '../utils/realm/redux/action
 export default function configureRealm(store: Store<{}>) {
   const realm = new Realm({
     schema: [Transaction, Category, Jar],
-    schemaVersion: 13,
+    schemaVersion: 0,
     migration: (oldRealm, newRealm) => {
-      newRealm.deleteModel(Transaction.schema.name);
-      newRealm.deleteModel(Category.schema.name);
     }
   });
-  
-  // seed(realm);
+
+  if (realm.objects(Jar).length === 0) {
+    seed(realm);
+  }
 
   // Configure to use along with redux
   store.dispatch(
@@ -26,9 +26,7 @@ export default function configureRealm(store: Store<{}>) {
   realm.schema.forEach((sm) => {
     realm.objects(sm.name).addListener(() => {
       console.log('dispatch collection changed', sm.name);
-      setTimeout(() => { 
-        store.dispatch(collectionChangedAction({ schemaName: sm.name, lastChangedTime: Date.now() })) }
-      , 1);
+      setTimeout(() => { store.dispatch(collectionChangedAction({ schemaName: sm.name, lastChangedTime: Date.now() })) });
     })
   });
 

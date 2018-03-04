@@ -11,17 +11,14 @@ import {
   ScrollableTab,
   Tabs,
   Tab,
-  Text
 } from "native-base";
 import moment from 'moment';
-import { noop, findIndex } from 'lodash';
-import { View } from 'react-native';
+import { noop, findIndex, size } from 'lodash';
 
 import ActionButton from 'react-native-action-button';
 import { translate } from '../../../../locales/i18n';
 import styles from "./styles";
 import TransactionsReport from './containers/TransactionsReport';
-import SelectTimeRangeModal from './components/SelectTimeRangeModal';
 import TopRightMenuOption from './components/TopRightMenuOption';
 
 export interface Props {
@@ -94,10 +91,23 @@ class ViewTransactions extends React.PureComponent<Props, State> {
 
   handleJumpToTodayOptionSelected = () => {
     this.setState({ isMenuVisible: false });
+    this.jumpToTodayTab();
+  }
+
+  jumpToTodayTab = () => {
     const { tabs } = this.props;
     const now = Date.now();
-    const pageIndex = findIndex(tabs, (t => { return t.from >= now && now <= t.to }));
-    this._tab.goToPage(pageIndex - 1);
+    const pageIndex = findIndex(tabs, (t => { return t.from <= now && now <= t.to }));
+    // Hack to fix the issue that comes from native-base
+    setTimeout(() => { this._tab.goToPage(pageIndex); });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { tabs: newTabs } = this.props;
+    const { tabs: oldTabs } = prevProps;
+    if (newTabs !== oldTabs && size(newTabs) > 0) {
+      this.jumpToTodayTab();
+    }
   }
 
   render() {
@@ -126,12 +136,13 @@ class ViewTransactions extends React.PureComponent<Props, State> {
             </Button>
           </Right>
         </Header>
-        <Tabs ref={t => { this._tab = t; }} renderTabBar={() => <ScrollableTab />}>
+        <Tabs initialPage={18} ref={t => { this._tab = t; }} renderTabBar={() => <ScrollableTab />}>
           {
             tabs.map(t => {
               return (
                 <Tab key={`t_${t.from}_${t.to}`} heading={this.getHeading(t)}>
-                  <TransactionsReport onTransactionItemClicked={this.handleTransactionItemClicked} from={t.from} to={t.to} />
+                  <TransactionsReport 
+                    onTransactionItemClicked={this.handleTransactionItemClicked} from={t.from} to={t.to} />
                 </Tab>
               )
             })
@@ -141,9 +152,6 @@ class ViewTransactions extends React.PureComponent<Props, State> {
           buttonColor="rgba(231,76,60,1)"
           position={'center'}
           onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}
-        />
-        <SelectTimeRangeModal
-          isVisible={false}
         />
       </Container>
     );

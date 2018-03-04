@@ -12,12 +12,11 @@ import {
   ListItem,
   Thumbnail,
   Text,
-  Tabs,
-  Tab,
+  Right,
 } from "native-base";
 import { noop, cloneDeep } from 'lodash';
 
-import I18n from '../../../../../../locales/i18n';
+import { translate, formatCurrency } from '../../../../../../locales/i18n';
 import styles from "./styles";
 import { loadIcon } from '../../../../../../resources';
 
@@ -52,7 +51,8 @@ class SelectJar extends React.PureComponent<Props, State> {
           <Thumbnail small source={loadIcon(jar.icon)} />
         </Left>
         <Body style={{ alignItems: 'flex-start' }}>
-          <Text>{I18n.t(`jar.${jar.name}`)}</Text>
+          <Text>{translate(`jar.${jar.name}`)}</Text>
+          <Text note>{translate('available')} {formatCurrency(jar.available)}</Text>
         </Body>
       </ListItem>
     )

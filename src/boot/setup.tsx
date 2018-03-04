@@ -5,10 +5,9 @@ import { Store } from "redux";
 import { MenuProvider } from 'react-native-popup-menu';
 import configureStore from "./configureStore";
 import configureRealm from "./configureRealm";
-import { RealmProvider } from '../utils/realm';
 import App from "../App";
 import getTheme from "../theme/components";
-import variables from "../theme/variables/material";
+import variables from "../theme/variables";
 import storage from '../storage';
 
 export interface Props {}

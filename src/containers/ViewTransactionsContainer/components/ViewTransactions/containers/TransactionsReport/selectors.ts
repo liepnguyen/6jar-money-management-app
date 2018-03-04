@@ -4,11 +4,11 @@ import { jarByIdSelector } from '../../../../../../services/redux/jar/selectors'
 import { transactionQuerySelector } from '../../../../../../services/redux/transaction/selectors';
 import { categoryByIdSelector } from '../../../../../../services/redux/category/selectors';
 
-const getFromDate = ({ }, props) => {
+const getFromDate = (state, props) => {
   return props.from;
 }
 
-const getToDate = ({ }, props) => {
+const getToDate = (state, props) => {
   return props.to;
 }
 

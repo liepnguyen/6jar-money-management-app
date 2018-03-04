@@ -15,11 +15,13 @@ import {
   View,
   Form,
   Thumbnail,
+  Toast,
 } from "native-base";
 import { Row } from 'react-native-easy-grid';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {
-  TouchableOpacity
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { noop, capitalize, isEmpty } from 'lodash';
 import moment from 'moment';
@@ -34,6 +36,7 @@ export interface Props {
   onFormValueChanged: Function;
   transaction: any;
   onSave: Function,
+  onDelete: Function,
 }
 export interface State {
   isDateTimePickerVisible: boolean
@@ -42,7 +45,8 @@ export interface State {
 class AddOrEditTransaction extends React.PureComponent<Props, State> {
   static defaultProps = {
     onFormValueChanged: noop,
-    transaction: {}
+    transaction: {},
+    onDelete: noop,
   }
 
   constructor(props, context) {
@@ -85,9 +89,45 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
     });
   }
 
+  showWarningMessage = (message) => {
+    Toast.show({
+      text: message,
+      position: 'bottom',
+      type: 'warning',
+      buttonText: 'OK',
+      duration: 5000,
+    });
+  }
+
+  validateTransaction = (transaction) => {
+    if (transaction.amount <= 0) {
+      this.showWarningMessage('Amount must be greater than zero');
+      return false;
+    }
+    if (!transaction.category) {
+      this.showWarningMessage('You must select a category');
+      return false;
+    }
+    if (transaction.category.type === 'expense' && !transaction.jar) {
+      this.showWarningMessage('You must select an account to debit');
+      return false;
+    }
+    return true;
+  }
+
   handleSaveTransaction = () => {
-    this.props.onSave(this.props.transaction);
-    this.props.navigation.goBack();
+    const { transaction } = this.props;
+    if (this.validateTransaction(transaction)) {
+      this.props.onSave(transaction);
+      this.props.navigation.goBack();
+    }
+  }
+
+  handleDeleteTransaction = () => {
+    Alert.alert('Delete Transaction', 'Are you sure you want to delete this transaction?', [
+      { text: 'NO', onPress: () => { }, style: 'cancel' },
+      { text: 'YES', onPress: () => { this.props.onDelete(this.props.transaction); this.props.navigation.goBack(); } },
+    ])
   }
 
   handleNoteInputted = (text) => {
@@ -107,7 +147,7 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
       return translate('today');
     }
     return moment(date).format('dddd, L');
-  } 
+  }
 
   render() {
     const { state } = this.props.navigation;
@@ -124,8 +164,15 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
             <Title>{state.params.mode === 'add' ? 'Add Transaction' : 'Edit Transaction'}</Title>
           </Body>
           <Right>
-            <Button transparent>
-              <Icon active name="md-checkmark" onPress={this.handleSaveTransaction} />
+            {
+              state.params.mode === 'view' ?
+                <Button transparent onPress={this.handleDeleteTransaction}>
+                  <Icon active name="md-trash" />
+                </Button>
+                : null
+            }
+            <Button transparent onPress={this.handleSaveTransaction}>
+              <Icon active name="md-checkmark" />
             </Button>
           </Right>
         </Header>
@@ -143,11 +190,11 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
               <Item>
                 <TouchableOpacity onPress={this.handleSelectCategory} style={{ flex: 1 }}>
                   <Row style={{ alignItems: 'center' }}>
-                    <Thumbnail small source={loadIcon(category.icon, { default: 'question_mark.png' })} />
+                    <Thumbnail small source={loadIcon(category.icon, { default: 'question_mark.png' })} style={{ marginRight: 5 }} />
                     {
                       isEmpty(category)
                         ? <Text style={[styles.textValue, styles.greyText]}>{I18n.t('select_category')}</Text>
-                        : <Text style={styles.textValue}>{ I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>
+                        : <Text style={[styles.textValue]}>{I18n.t(`category.${category.name}`, { defaultValue: category.name })}</Text>
                     }
                   </Row>
                 </TouchableOpacity>
@@ -170,17 +217,17 @@ class AddOrEditTransaction extends React.PureComponent<Props, State> {
                     <Item>
                       <TouchableOpacity onPress={this.handleSelectJar} style={{ flex: 1 }}>
                         <Row style={{ alignItems: 'center' }}>
-                        <Thumbnail small source={loadIcon(jar.icon, { default: 'question_mark.png' })} />
-                        {
-                          isEmpty(jar)
-                            ? <Text style={[styles.textValue, styles.greyText]}>{I18n.t('select_account')}</Text>
-                            : <Text style={styles.textValue}>{I18n.t(`jar.${jar.name}`, { defaultValue: jar.name })}</Text>
-                        }
+                          <Thumbnail small source={loadIcon(jar.icon, { default: 'question_mark.png' })} />
+                          {
+                            isEmpty(jar)
+                              ? <Text style={[styles.textValue, styles.greyText]}>{I18n.t('select_account')}</Text>
+                              : <Text style={styles.textValue}>{I18n.t(`jar.${jar.name}`, { defaultValue: jar.name })}</Text>
+                          }
                         </Row>
                       </TouchableOpacity>
                     </Item>
                   )
-                : null
+                  : null
               }
             </Form>
           </View>

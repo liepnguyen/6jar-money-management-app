@@ -12,6 +12,7 @@ export default {
   inflow: 'Inflow',
   outflow: 'Outflow',
   overview: 'Overview',
+  available: 'Available',
   jar: {
     necessity_account: 'Necessity',
     play_account: 'Play',

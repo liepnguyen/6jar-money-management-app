@@ -90,8 +90,11 @@ const updateStateWhenCalculatorButtonPress = (state, action) => {
 				hasFinalResult = true;
 			}
 		} catch {
-			hasFinalResult = false;
+			newExpressionParts = expressionParts;
 		}
+	}
+	if (newExpressionParts.length === 1 && !isNaN(newExpressionParts[0])) {
+		hasFinalResult = true;
 	}
 	return update(state, {
 		calculator: { $merge: { expressionParts: newExpressionParts, hasFinalResult } }
