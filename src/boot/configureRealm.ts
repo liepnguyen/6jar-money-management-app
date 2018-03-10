@@ -7,8 +7,9 @@ import { collectionChangedAction, initAction } from '../utils/realm/redux/action
 export default function configureRealm(store: Store<{}>) {
   const realm = new Realm({
     schema: [Transaction, Category, Jar],
-    schemaVersion: 0,
+    schemaVersion: 1,
     migration: (oldRealm, newRealm) => {
+
     }
   });
 

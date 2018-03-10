@@ -27,20 +27,20 @@ class Jar extends React.PureComponent<Props, State> {
           </CardItem>
           <CardItem>
             <Row style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Icon name='md-calendar' style={{ fontSize: 18 }} />
-              <Text>{upperFirst(moment().format('dddd, LL'))}</Text>
+              <Icon name='md-calendar' style={{ fontSize: 25, color: 'rgb(97,97,97)' }} />
+              <Text style={{ color: 'rgb(97,97,97)' }}>{upperFirst(moment().format('dddd, LL'))}</Text>
             </Row>
           </CardItem>
           <CardItem>
             <Grid>
               <Row>
                 <Col style={{ alignItems: 'center' }}>
-                  <Row><Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>{formatCurrency(totalAvailable)}</Text></Row>
-                  <Row><Text style={{ color: 'gray' }}>TOTAL AVAILABLE</Text></Row>
+                  <Row><Text style={{ color: 'rgb(33,150,243)', fontSize: 25, fontWeight: '800' }}>{formatCurrency(totalAvailable)}</Text></Row>
+                  <Row><Text style={{ color: 'rgb(158,158,158)', fontSize: 15, fontWeight: '800' }}>TOTAL AVAILABLE</Text></Row>
                 </Col>
                 <Col style={{ alignItems: 'center' }}>
-                  <Row><Text style={{ color: 'blue', fontSize: 25, fontWeight: '800' }}>{formatCurrency(totalUsedInThisMonth)}</Text></Row>
-                  <Row><Text style={{ color: 'gray' }}>USE IN THIS MONTH</Text></Row>
+                  <Row><Text style={{ color: 'rgb(33,150,243)', fontSize: 25, fontWeight: '800' }}>{formatCurrency(totalUsedInThisMonth)}</Text></Row>
+                  <Row><Text style={{ color: 'rgb(158,158,158)', fontSize: 15, fontWeight: '800' }}>USE IN THIS MONTH</Text></Row>
                 </Col>
               </Row>
             </Grid>

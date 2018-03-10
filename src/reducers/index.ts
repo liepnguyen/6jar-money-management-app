@@ -1,13 +1,11 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
-import homeReducer from "../containers/HomeContainer/reducer";
-import addOrEditTransactionReducer from "../containers/AddOrEditTransactionContainer/reducer";
-import viewTransactionsReducer from "../containers/ViewTransactionsContainer/reducer";
-import transactionReducer from '../services/redux/transaction/reducer';
-import categoryReducer from '../services/redux/category/reducer';
-import jarReducer from '../services/redux/jar/reducer';
-import enterAmountReducer from '../containers/AddOrEditTransactionContainer/screens/EnterAmountContainer/reducer';
+import homeReducer from "../screens/Home/reducer";
+import cveTransactionReducer from "../screens/CVETransaction/reducer";
+import viewTransactionsReducer from "../screens/ViewTransactions/reducer";
+import cveCategoryReducer from "../screens/CVECategory/reducer";
+import enterAmountReducer from '../screens/CVETransaction/screens/EnterAmount/reducer';
 import realmReducer from '../utils/realm/redux/reducer';
 
 export default combineReducers({
@@ -15,13 +13,9 @@ export default combineReducers({
 	form: formReducer,
 	screens: combineReducers({
 		home: homeReducer,
-		addOrEditTransaction: addOrEditTransactionReducer,
+		cveTransaction: cveTransactionReducer,
 		enterAmount: enterAmountReducer,
 		viewTransactions: viewTransactionsReducer,
+		cveCategory: cveCategoryReducer,
 	}),
-	entities: combineReducers({
-		transaction: transactionReducer,
-		category: categoryReducer,
-		jar: jarReducer,
-	})
 });

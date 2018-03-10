@@ -32,8 +32,8 @@ export const formatCurrency = (v) => {
   return I18n.toCurrency(v);
 }
 
-export const translate = (key, option: { case?: string } = {}) => {
-  const value = I18n.t(key) || '';
+export const translate = (key, option: { case?: string, defaultValue?: string } = {}) => {
+  const value = I18n.t(key, { defaultValue: option.defaultValue }) || '';
   if (option.case === 'upperCase') {
     return value.toUpperCase();
   }

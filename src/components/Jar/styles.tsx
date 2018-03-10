@@ -2,7 +2,7 @@ import { StyleSheet, Image } from "react-native";
 
 const styles: any = StyleSheet.create({
   cardImageContainer: {
-    height: 150,
+    height: 130,
     width: null,
     flex: 1,
     marginBottom: 15,
@@ -16,7 +16,7 @@ const styles: any = StyleSheet.create({
   },
   cardOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.68)',
+    backgroundColor: 'rgba(38,50,56,0.8)',
     borderRadius: 8,
   },
   cardOverlayContentContainer: {

@@ -28,7 +28,7 @@ export function createAsyncAction(namspace, type) {
 export function createAction(namspace, type) {
   const TYPE = `${namspace}/${type}`;
   return {
-    execute: createReduxAction(TYPE),
-    EXECUTE: TYPE,
+    start: createReduxAction(TYPE),
+    START: TYPE,
   }
 }

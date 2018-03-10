@@ -31,9 +31,9 @@ class Fab extends React.PureComponent<Props, State> {
     return (
       <ActionButton
         renderIcon={() => <Icon name="md-star-outline" style={{ color: variable.inverseTextColor }} />}
-        buttonColor={variable.brandSuccess}
+        buttonColor={variable.brandPrimary}
         position={position}>
-        <ActionButton.Item buttonColor={variable.brandPrimary} title="Add Transaction" onPress={() => { navigation.navigate('AddOrEditTransaction', { mode: 'add' }) }}>
+        <ActionButton.Item buttonColor={variable.brandSuccess} title="Add Transaction" onPress={() => { navigation.navigate('CVETransaction', { mode: 'add' }) }}>
           <Icon name="md-swap" style={styles.actionButtonIcon} />
         </ActionButton.Item>
         <ActionButton.Item buttonColor={variable.brandInfo} title="Transactions" onPress={() => { navigation.navigate('ViewTransactions') }}>

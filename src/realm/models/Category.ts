@@ -6,7 +6,8 @@ export default class Transaction {
       id: { type: 'string' },
       name: { type: 'string' },
       icon: { type: 'string' },
-      type: { type: 'string' }
+      type: { type: 'string' },
+      isDefault: { type: 'bool', default: false },
     }
   }
 
@@ -14,4 +15,5 @@ export default class Transaction {
   name: string;
   icon: string;
   type: string;
+  isDefault: string;
 }

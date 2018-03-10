@@ -15,6 +15,7 @@ export default function seed(realm: Realm) {
         name: cat.name,
         type: cat.type,
         icon: cat.icon,
+        isDefault: true,
       })
     });
     console.log('Seeding categories was done', realm.objects(Category));

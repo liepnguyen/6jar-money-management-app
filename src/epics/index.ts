@@ -1,7 +1,9 @@
 import { combineEpics } from 'redux-observable';
 
-import transactionEpics from '../services/redux/transaction/epics';
+import cveTransactionEpics from '../screens/CVETransaction/epics';
+import cveCategoryEpics from '../screens/CVECategory/epics';
 
 export default combineEpics(
-  ...transactionEpics,
+  ...cveTransactionEpics,
+  ...cveCategoryEpics,
 );

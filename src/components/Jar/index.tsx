@@ -32,28 +32,30 @@ class Jar extends React.PureComponent<Props, State> {
             <View style={styles.cardOverlayContent}>
               <Grid style={{ justifyContent: 'space-between' }}>
                 <Row>
-                  <H3 style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>{translate(`jar.${name}`, { case: 'upperCase' })}</H3>
+                  <H3 style={{ color: 'white', fontSize: 18, fontWeight: '900' }}>{translate(`jar.${name}`, { case: 'upperCase' })}</H3>
                 </Row>
                 <Row style={{ marginBottom: 'auto' }}>
                   <Col style={{ alignItems: 'center' }}>
-                    <Row><Text style={{ color: 'white' }}>{this.props.incomePercentage}</Text></Row>
-                    <Row><Text style={{ color: 'white' }}>% INCOME</Text></Row>
+                    <Row><Text style={{ color: 'white', fontWeight: '600' }}>{this.props.incomePercentage}</Text></Row>
+                    <Row><Text style={{ color: 'white', fontSize: 14 }}>% INCOME</Text></Row>
                   </Col>
                   <Col style={{ alignItems: 'center' }}>
-                    <Row><Text style={{ color: 'white' }}>{formatCurrency(available)}</Text></Row>
-                    <Row><Text style={{ color: 'white' }}>AVAILABLE</Text></Row>
+                    <Row><Text style={{ color: 'white', fontWeight: '600' }}>{formatCurrency(available)}</Text></Row>
+                    <Row><Text style={{ color: 'white', fontSize: 14 }}>AVAILABLE</Text></Row>
                   </Col>
                 </Row>
                 <Row style={{ alignItems: 'flex-end' }}>
                   <Grid style={{ height: 30 }}>
                     <Row>
-                      <Col><Text style={{ color: 'white', fontSize: 12 }}>USED IN THIS MONTH</Text></Col>
+                      <Col><Text style={{ color: 'rgb(224,224,224)', fontSize: 12 }}>USED IN THIS MONTH</Text></Col>
                       <Col style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ color: 'white', fontSize: 12 }}>{formatCurrency(usedInThisMonth)}</Text>
+                        <Text style={{ color: 'rgb(224,224,224)', fontSize: 12 }}>{formatCurrency(usedInThisMonth)}</Text>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col><Progress.Bar progress={usedInThisMonthInPercentage} width={null} /></Col>
+                    <Row style={{ alignItems: 'flex-end' }}>
+                      <Col>
+                        <Progress.Bar borderWidth={0} unfilledColor='rgba(120,144,156,.6)' color='rgb(139,195,74)' progress={usedInThisMonthInPercentage} width={null} />
+                      </Col>
                     </Row>
                   </Grid>
                 </Row>
