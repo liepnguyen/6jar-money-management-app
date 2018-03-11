@@ -5,7 +5,7 @@ import homeReducer from "../screens/Home/reducer";
 import cveTransactionReducer from "../screens/CVETransaction/reducer";
 import viewTransactionsReducer from "../screens/ViewTransactions/reducer";
 import cveCategoryReducer from "../screens/CVECategory/reducer";
-import enterAmountReducer from '../screens/CVETransaction/screens/EnterAmount/reducer';
+import enterAmountReducer from '../screens/EnterAmount/reducer';
 import realmReducer from '../utils/realm/redux/reducer';
 
 export default combineReducers({

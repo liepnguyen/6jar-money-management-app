@@ -2,13 +2,13 @@ import moment from 'moment';
 import update from 'immutability-helper';
 import uuid from 'uuid';
 
-import { changeFormValue, setupNewTransaction, loadTransaction } from './actions';
+import { changeFormValue, setupNewTransaction, loadTransactionAsync, deleteTransactionAsync } from './actions';
 
 const initialState = {
 	transaction: {},
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
 	switch (action.type) {
 		case changeFormValue.START: {
 			const keyValue = action.payload;
@@ -24,9 +24,9 @@ export default function(state = initialState, action) {
 			}
 			return update(state, { transaction: { $set: newTransaction } });
 		}
-		case loadTransaction.START:
+		case loadTransactionAsync.START:
 			const transaction = action.payload;
-			return update(state, { transaction: { $set: transaction } });
+			return update(state, { transaction: { $set: { ...transaction } } });
 		default:
 			return state;
 	}

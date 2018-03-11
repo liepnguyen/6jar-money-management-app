@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Icon } from "native-base";
+import { noop } from 'lodash';
 import ActionButton from 'react-native-action-button';
-import PropTypes from 'prop-types';
 import variable from '../../theme/variables';
 
 import styles from "./styles";
@@ -13,30 +13,27 @@ enum Position {
 
 export interface Props {
   position?: Position,
-  navigation: any
+  onAddTransactionButtonPressed?: () => void;
+  onViewTransactionsButtonPressed?: () => void;
 }
 export interface State { }
 
 class Fab extends React.PureComponent<Props, State> {
-  static contextTypes = {
-    style: PropTypes.object
-  }
-
   constructor(props, context) {
     super(props, context);
   }
 
   render() {
-    const { position, navigation } = this.props;
+    const { position, onAddTransactionButtonPressed, onViewTransactionsButtonPressed } = this.props;
     return (
       <ActionButton
         renderIcon={() => <Icon name="md-star-outline" style={{ color: variable.inverseTextColor }} />}
         buttonColor={variable.brandPrimary}
         position={position}>
-        <ActionButton.Item buttonColor={variable.brandSuccess} title="Add Transaction" onPress={() => { navigation.navigate('CVETransaction', { mode: 'add' }) }}>
+        <ActionButton.Item buttonColor={variable.brandSuccess} title="Add Transaction" onPress={onAddTransactionButtonPressed}>
           <Icon name="md-swap" style={styles.actionButtonIcon} />
         </ActionButton.Item>
-        <ActionButton.Item buttonColor={variable.brandInfo} title="Transactions" onPress={() => { navigation.navigate('ViewTransactions') }}>
+        <ActionButton.Item buttonColor={variable.brandInfo} title="Transactions" onPress={onViewTransactionsButtonPressed}>
           <Icon name="md-list-box" style={styles.actionButtonIcon} />
         </ActionButton.Item>
       </ActionButton>
@@ -45,7 +42,8 @@ class Fab extends React.PureComponent<Props, State> {
 
   static defaultProps: Props = {
     position: Position.Right,
-    navigation: {},
+    onAddTransactionButtonPressed: noop,
+    onViewTransactionsButtonPressed: noop,
   }
 }
 

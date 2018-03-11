@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import CVECategory from './components/CVECategory';
 import { categorySelector } from "./selectors";
-import { changeFormValue, saveCategoryAsync, setupNewCategory } from './actions';
+import { changeFormValue, saveCategoryAsync, setupNewCategory, deleteCategoryAsync } from './actions';
 import { loadCategory } from './actions';
 
 export interface Props {
@@ -13,6 +13,7 @@ export interface Props {
   changeFormValue: (keyValue: any) => void;
   saveCategory: (category) => void;
   setupNewCategory: () => void;
+  deleteCategory: (categoryId) => void;
 }
 export interface State { }
 class CVECategoryContainer extends React.PureComponent<Props, State> {
@@ -39,6 +40,12 @@ class CVECategoryContainer extends React.PureComponent<Props, State> {
     navigation.goBack();
   }
 
+  handleDeleteCategory = (categoryId) => {
+    const { deleteCategory, navigation } = this.props;
+    deleteCategory(categoryId);
+    navigation.goBack();
+  }
+
   render() {
     const { category } = this.props;
     const { mode } = this.props.navigation.state.params;
@@ -47,8 +54,9 @@ class CVECategoryContainer extends React.PureComponent<Props, State> {
         onGoBackButtonPressed={this.handleGoBack}
         category={category}
         mode={mode}
-        onFormValueChanged={this.handleFormValueChanged} 
+        onFormValueChanged={this.handleFormValueChanged}
         onSaveButtonPressed={this.handleSaveCategory}
+        onDeleteCategory={this.handleDeleteCategory}
       />
     );
   }
@@ -60,6 +68,7 @@ function bindAction(dispatch) {
     changeFormValue: (keyValue) => { dispatch(changeFormValue.start(keyValue)) },
     saveCategory: (category) => { dispatch(saveCategoryAsync.start(category)) },
     setupNewCategory: () => { dispatch(setupNewCategory.start()) },
+    deleteCategory: (categoryId) => { dispatch(deleteCategoryAsync.start(categoryId)) },
   };
 }
 

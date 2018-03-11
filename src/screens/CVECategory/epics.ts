@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ActionsObservable } from 'redux-observable';
 import { merge } from 'lodash';
 import moment from 'moment';
-import { saveCategoryAsync, loadCategory } from './actions';
+import { saveCategoryAsync, deleteCategoryAsync } from './actions';
 import { Category } from '../../realm/models';
 import storage from '../../storage';
 
@@ -32,6 +32,24 @@ const saveCategoryEpic = (action$: ActionsObservable<any>) => {
     });
 }
 
+const deleteCategoryEpic = (action$: ActionsObservable<any>) => {
+  return action$.ofType(deleteCategoryAsync.START)
+    .mergeMap((action) => {
+      const realm = storage.getRealmInstance();
+      const id = action.payload;
+			realm.write(() => {
+        let persistedCategory = realm.objectForPrimaryKey(Category, id);
+        persistedCategory && realm.delete(persistedCategory);
+      });
+      return Observable.of(deleteCategoryAsync.succeeded());
+    })
+    .takeUntil(action$.ofType(deleteCategoryAsync.CANCELLED))
+    .catch((err) => {
+      return Observable.of(deleteCategoryAsync.failed(err));
+    });
+}
+
 export default [
   saveCategoryEpic,
+  deleteCategoryEpic,
 ]

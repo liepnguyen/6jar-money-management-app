@@ -9,5 +9,5 @@ export const CHANGE_FORM_VALUE = `${NAMESPACE}/CHANGE_FORM_VALUE`;
 export const setupNewTransaction = createAction(NAMESPACE, 'SETUP_NEW_TRANSACTION');
 export const changeFormValue = createAction(NAMESPACE, 'CHANGE_FORM_VALUE');
 export const saveTransaction = createAsyncAction(NAMESPACE, 'SAVE_TRANSACTION');
-export const deleteTransaction = createAsyncAction(NAMESPACE, 'DELETE_TRANSACTION');
-export const loadTransaction = createAction(NAMESPACE, 'LOAD_TRANSACTION_TO_STATE');
+export const deleteTransactionAsync = createAsyncAction(NAMESPACE, 'DELETE_TRANSACTION');
+export const loadTransactionAsync = createAction(NAMESPACE, 'LOAD_TRANSACTION_TO_STATE');

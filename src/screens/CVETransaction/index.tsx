@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import CVETransaction from "./components/CVETransaction";
-import { changeFormValue, setupNewTransaction, saveTransaction, deleteTransaction, loadTransaction } from './actions';
+import { changeFormValue, setupNewTransaction, saveTransaction, deleteTransactionAsync, loadTransactionAsync } from './actions';
 import { transactionSelector } from './selectors';
 import { CVE_SCREEN_MODES } from '../../constants';
 
@@ -99,9 +99,9 @@ function bindAction(dispatch) {
 	return {
 		changeFormValue: (keyValue: any) => { dispatch(changeFormValue.start(keyValue)); },
 		saveTransaction: (transaction: any) => { dispatch(saveTransaction.start(transaction)); },
-		deleteTransaction: (transactionId: string) => { dispatch(deleteTransaction.start(transactionId)); },
+		deleteTransaction: (transactionId: string) => { dispatch(deleteTransactionAsync.start(transactionId)); },
 		setupNewTransaction: () => { dispatch(setupNewTransaction.start()); },
-		loadTransaction: (transactionId: string) => { dispatch(loadTransaction.start(transactionId)); }
+		loadTransaction: (transactionId: string) => { dispatch(loadTransactionAsync.start(transactionId)); }
 	};
 }
 

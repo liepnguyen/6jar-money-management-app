@@ -29,6 +29,7 @@ import moment from 'moment';
 import I18n, { formatNumber, translate } from '../../../../locales/i18n';
 import styles from "./styles";
 import { loadIcon } from '../../../../resources';
+import { CVE_SCREEN_MODES } from '../../../../constants';
 
 export interface Props {
   onFormValueChanged: (keyValue: any) => void;
@@ -152,11 +153,11 @@ class CVETransaction extends React.PureComponent<Props, State> {
             </Button>
           </Left>
           <Body>
-            <Title>{mode === 'new' ? 'Add Transaction' : 'Edit Transaction'}</Title>
+            <Title>{mode === CVE_SCREEN_MODES.NEW ? 'Add Transaction' : 'Edit Transaction'}</Title>
           </Body>
           <Right>
             {
-              mode === 'view' ?
+              mode === CVE_SCREEN_MODES.VIEW ?
                 <Button transparent onPress={this.handleDeleteTransaction}>
                   <Icon active name="md-trash" />
                 </Button>

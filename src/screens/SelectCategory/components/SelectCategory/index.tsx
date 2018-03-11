@@ -16,8 +16,8 @@ import {
   Content
 } from "native-base";
 import { filter } from 'lodash';
-import I18n from '../../../../../../locales/i18n';
-import { loadIcon } from '../../../../../../resources';
+import I18n from '../../../../locales/i18n';
+import { loadIcon } from '../../../../resources';
 
 import styles from "./styles";
 

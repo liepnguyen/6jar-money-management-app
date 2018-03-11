@@ -23,9 +23,11 @@ import Fab from "../../../../components/Fab";
 import TopRightMenuOption from '../TopRightMenuOption';
 
 export interface Props {
-  navigation: any;
   jars: any;
-  report: any
+  report: any;
+  onMenuButtonPressed: () => void;
+  onAddTransactionButtonPressed: () => void;
+  onViewTransactionsButtonPressed: () => void;
 }
 
 export interface State {
@@ -43,12 +45,12 @@ class Home extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { navigation, report } = this.props;
+    const { report, onMenuButtonPressed, onAddTransactionButtonPressed, onViewTransactionsButtonPressed } = this.props;
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => navigation.navigate("DrawerOpen")}>
+            <Button transparent onPress={onMenuButtonPressed}>
               <Icon active name="md-menu" />
             </Button>
           </Left>
@@ -81,7 +83,10 @@ class Home extends React.PureComponent<Props, State> {
           </Card>
           <View style={{ marginBottom: 100 }} />
         </Content>
-        <Fab navigation={navigation} />
+        <Fab
+          onAddTransactionButtonPressed={onAddTransactionButtonPressed}
+          onViewTransactionsButtonPressed={onViewTransactionsButtonPressed}
+        />
       </Container>
     );
   }

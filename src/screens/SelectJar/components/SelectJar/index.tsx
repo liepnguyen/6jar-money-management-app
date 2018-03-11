@@ -16,9 +16,9 @@ import {
 } from "native-base";
 import { noop, cloneDeep } from 'lodash';
 
-import { translate, formatCurrency } from '../../../../../../locales/i18n';
+import { translate, formatCurrency } from '../../../../locales/i18n';
 import styles from "./styles";
-import { loadIcon } from '../../../../../../resources';
+import { loadIcon } from '../../../../resources';
 
 export interface Props {
   navigation: any;

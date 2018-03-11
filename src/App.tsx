@@ -12,11 +12,9 @@ import CVETransaction from "./screens/CVETransaction";
 import ViewTransactions from "./screens/ViewTransactions";
 import Categories from './screens/Categories';
 import CVECategory from './screens/CVECategory';
-import {
-	SelectCategory,
-	SelectJar,
-	EnterAmount
-} from "./screens/CVETransaction/screens";
+import SelectCategory from './screens/SelectCategory';
+import SelectJar from './screens/SelectJar';
+import EnterAmount from './screens/EnterAmount';
 
 const Drawer = DrawerNavigator(
 	{

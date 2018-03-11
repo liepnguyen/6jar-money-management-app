@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { last, includes } from 'lodash';
-import { formatNumber } from '../../../../locales/i18n';
+import { formatNumber } from '../../locales/i18n';
 import { OP_KEY } from './constants';
 
 export const screenStateSelector = (state) => { return state.screens.enterAmount; }

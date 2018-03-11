@@ -35,9 +35,6 @@ class TransactionsReport extends React.PureComponent<Props, State> {
     return transaction.type === 'expense' ? -transaction.amount : transaction.amount;
   }
 
-  componentWillMount() {
-  }
-
   render() {
     const { report: { inflow, outflow, transactions }, onTransactionItemClicked } = this.props;
     const transactionsByDates = groupBy(transactions, 'date');
@@ -105,7 +102,7 @@ class TransactionsReport extends React.PureComponent<Props, State> {
                       <Left>
                         <Thumbnail small source={loadIcon(category.icon)} />
                         <Body>
-                          <Text>{translate(`category.${category.name}`)}</Text>
+                          <Text>{translate(`category.${category.name}`, { defaultValue: category.name })}</Text>
                           <Text note>{transaction.note}</Text>
                         </Body>
                       </Left>

@@ -1,16 +1,16 @@
 import update from 'immutability-helper';
 import uuid from 'uuid';
-import { changeFormValue, setupNewCategory, loadCategory } from './actions';
+import { changeFormValue, setupNewCategory, loadCategory, deleteCategoryAsync } from './actions';
 
 const initialState = {
 	category: {},
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
 	switch (action.type) {
-    case loadCategory.START: {
-      const category = action.payload;
-      return update(state, { category: { $set: category } });
+		case loadCategory.START: {
+			const category = action.payload;
+			return update(state, { category: { $set: { ...category } } });
 		}
 		case changeFormValue.START: {
 			const values = action.payload;
@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
 				id: uuid.v4(),
 				name: '',
 				type: 'expense',
-				icon: 'other.png',
+				icon: 'custom_icon.png',
 			}
 			return update(state, { category: { $set: category } });
 		}

@@ -3,6 +3,8 @@ import {
 	Container, Header, Title, Content, Button, Icon,
 	Left, Right, Body, Form, View, Item, Input, Row, Col, Text, Radio,
 } from "native-base";
+import { CVE_SCREEN_MODES } from '../../../../constants';
+import { Alert } from 'react-native';
 
 import styles from "./styles";
 
@@ -12,6 +14,7 @@ export interface Props {
 	mode: string;
 	onFormValueChanged: (keyValue: any) => void;
 	onSaveButtonPressed: () => void;
+	onDeleteCategory: (categoryId: string) => void;
 }
 export interface State { }
 class CategoriesPage extends React.PureComponent<Props, State> {
@@ -27,9 +30,16 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 		this.props.onFormValueChanged({ type });
 	}
 
+	handleDeleteCategory = () => {
+    const { category: { id }, onDeleteCategory } = this.props;
+    Alert.alert('Delete Category', 'Are you sure you want to delete this category?', [
+      { text: 'NO', onPress: () => { }, style: 'cancel' },
+      { text: 'YES', onPress: () => { onDeleteCategory(id); } },
+    ])
+  }
+
 	render() {
-		const { onGoBackButtonPressed, onSaveButtonPressed, category } = this.props;
-		console.log(category);
+		const { onGoBackButtonPressed, onSaveButtonPressed, category, mode } = this.props;
 		return (
 			<Container style={styles.container}>
 				<Header>
@@ -43,6 +53,13 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 					</Body>
 					<Right />
 					<Right>
+						{
+							mode === CVE_SCREEN_MODES.VIEW ?
+								<Button transparent onPress={this.handleDeleteCategory}>
+									<Icon active name="md-trash" />
+								</Button>
+								: null
+						}
 						<Button transparent onPress={onSaveButtonPressed}>
 							<Icon active name="md-checkmark" />
 						</Button>

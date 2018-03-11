@@ -2,7 +2,7 @@ import moment from 'moment';
 import { Observable } from 'rxjs';
 import { merge } from 'lodash';
 import { ActionsObservable } from 'redux-observable';
-import { saveTransaction, deleteTransaction } from './actions';
+import { saveTransaction, deleteTransactionAsync } from './actions';
 import { Transaction } from '../../realm/models';
 import storage from '../../storage';
 
@@ -31,7 +31,7 @@ const saveTransactionEpic = (action$: ActionsObservable<any>) => {
 }
 
 const deleteTransactionEpic = (action$: ActionsObservable<any>) => {
-  return action$.ofType(deleteTransaction.START)
+  return action$.ofType(deleteTransactionAsync.START)
     .mergeMap((action) => {
       const realm = storage.getRealmInstance();
       const id = action.payload;
@@ -39,11 +39,11 @@ const deleteTransactionEpic = (action$: ActionsObservable<any>) => {
         let persistedTransaction = realm.objectForPrimaryKey(Transaction, id);
         persistedTransaction && realm.delete(persistedTransaction);
       });
-      return Observable.of(deleteTransaction.succeeded());
+      return Observable.of(deleteTransactionAsync.succeeded());
     })
-    .takeUntil(action$.ofType(deleteTransaction.CANCELLED))
+    .takeUntil(action$.ofType(deleteTransactionAsync.CANCELLED))
     .catch((err) => {
-      return Observable.of(deleteTransaction.failed(err));
+      return Observable.of(deleteTransactionAsync.failed(err));
     });
 }
 

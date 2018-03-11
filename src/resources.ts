@@ -30,6 +30,7 @@ export const images = {
     get ['jar_money.png']() { return require('../assets/images/icons/jar_money.png') },
     get ['account_money.png']() { return require('../assets/images/icons/account_money.png') },
     get ['question_mark.png']() { return require('../assets/images/icons/question_mark.png') },
+    get ['custom_icon.png']() { return require('../assets/images/icons/custom_icon.png') },
   }
 }
 

@@ -1,11 +1,29 @@
+import * as React from "react";
 import { connect } from "react-redux";
 import { makeGetTransactionsReport } from './selectors';
 
 import TransactionsReport from '../../components/TransactionsReport';
 
-const bindAction = (dispatch) => {
-  return {
-  };
+export interface Props {
+  report: any;
+  from: number;
+  to: number;
+  onTransactionItemClicked: (transaction) => void;
+}
+export interface State {
+}
+class TransactionsReportContainer extends React.PureComponent<Props, State> {
+  render() {
+    const { report, from, to, onTransactionItemClicked } = this.props;
+    return (
+      <TransactionsReport
+        report={report}
+        from={from}
+        to={to}
+        onTransactionItemClicked={onTransactionItemClicked}
+      />
+    )
+  }
 }
 
 const makeMapStateToProps = () => {
@@ -18,4 +36,4 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 }
 
-export default connect(makeMapStateToProps, bindAction)(TransactionsReport);
+export default connect(makeMapStateToProps)(TransactionsReportContainer);

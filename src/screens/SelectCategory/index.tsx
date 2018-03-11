@@ -2,7 +2,7 @@ import * as React from "react";
 import { createStructuredSelector } from 'reselect';
 import { connect } from "react-redux";
 import SelectCategory from "./components/SelectCategory";
-import { categoriesSelector } from '../../../../shared/redux/selectors/categorySelectors';
+import { categoriesSelector } from '../../shared/redux/selectors/categorySelectors';
 
 export interface Props {
 	navigation: any,

@@ -2,7 +2,7 @@ import * as React from "react";
 import { createStructuredSelector } from 'reselect';
 import { connect } from "react-redux";
 import SelectJar from "./components/SelectJar";
-import { jarsSelector } from '../../../../shared/redux/selectors/jarSelectors';
+import { jarsSelector } from '../../shared/redux/selectors/jarSelectors';
 
 export interface Props {
 	navigation: any,
