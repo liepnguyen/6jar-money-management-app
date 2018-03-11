@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import uuid from 'uuid';
-import { changeFormValue, setupNewCategory, loadCategory, deleteCategoryAsync } from './actions';
+import { changeFormValue, setupNewCategory, loadCategory, clearState } from './actions';
 
 const initialState = {
 	category: {},
@@ -24,6 +24,13 @@ export default function (state = initialState, action) {
 				icon: 'custom_icon.png',
 			}
 			return update(state, { category: { $set: category } });
+		}
+		case clearState.START: {
+			return update(state, {
+				$set: {
+					category: {}
+				}
+			});
 		}
 		default:
 			return state;

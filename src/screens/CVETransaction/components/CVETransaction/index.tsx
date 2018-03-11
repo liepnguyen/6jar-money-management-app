@@ -15,7 +15,6 @@ import {
   View,
   Form,
   Thumbnail,
-  Toast,
 } from "native-base";
 import { Row } from 'react-native-easy-grid';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -30,6 +29,7 @@ import I18n, { formatNumber, translate } from '../../../../locales/i18n';
 import styles from "./styles";
 import { loadIcon } from '../../../../resources';
 import { CVE_SCREEN_MODES } from '../../../../constants';
+import { showWarningMessage } from '../../../../utils/toast';
 
 export interface Props {
   onFormValueChanged: (keyValue: any) => void;
@@ -73,27 +73,17 @@ class CVETransaction extends React.PureComponent<Props, State> {
     this.props.onFormValueChanged({ date: +date });
   };
 
-  showWarningMessage = (message) => {
-    Toast.show({
-      text: message,
-      position: 'bottom',
-      type: 'warning',
-      buttonText: 'OK',
-      duration: 5000,
-    });
-  }
-
   validateTransaction = (transaction) => {
     if (transaction.amount <= 0) {
-      this.showWarningMessage('Amount must be greater than zero');
+      showWarningMessage('Amount must be greater than zero');
       return false;
     }
     if (!transaction.category) {
-      this.showWarningMessage('You must select a category');
+      showWarningMessage('You must select a category');
       return false;
     }
     if (transaction.category.type === 'expense' && !transaction.jar) {
-      this.showWarningMessage('You must select an account to debit');
+      showWarningMessage('You must select an account to debit');
       return false;
     }
     return true;

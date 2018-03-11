@@ -7,3 +7,4 @@ export const saveCategoryAsync = createAsyncAction(NAMESPACE, 'SAVE_CATEGORY');
 export const deleteCategoryAsync = createAsyncAction(NAMESPACE, 'DELETE_CATEGORY');
 export const setupNewCategory = createAction(NAMESPACE, 'SETUP_NEW_CATEGORY');
 export const loadCategory = createAction(NAMESPACE, 'LOAD_CATEGORY_BY_ID');
+export const clearState = createAction(NAMESPACE, 'CLEAR_STATE');

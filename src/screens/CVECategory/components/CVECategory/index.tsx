@@ -15,11 +15,13 @@ export interface Props {
 	onFormValueChanged: (keyValue: any) => void;
 	onSaveButtonPressed: () => void;
 	onDeleteCategory: (categoryId: string) => void;
+	isReadonly: boolean;
 }
 export interface State { }
 class CategoriesPage extends React.PureComponent<Props, State> {
 	static defaultProps = {
 		category: {},
+		isReadonly: false,
 	}
 
 	handleCategoryNameInputChanged = (name) => {
@@ -31,15 +33,12 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 	}
 
 	handleDeleteCategory = () => {
-    const { category: { id }, onDeleteCategory } = this.props;
-    Alert.alert('Delete Category', 'Are you sure you want to delete this category?', [
-      { text: 'NO', onPress: () => { }, style: 'cancel' },
-      { text: 'YES', onPress: () => { onDeleteCategory(id); } },
-    ])
+		const { category: { id }, onDeleteCategory } = this.props;
+		onDeleteCategory(id);
   }
 
 	render() {
-		const { onGoBackButtonPressed, onSaveButtonPressed, category, mode } = this.props;
+		const { onGoBackButtonPressed, onSaveButtonPressed, category, mode, isReadonly } = this.props;
 		return (
 			<Container style={styles.container}>
 				<Header>
@@ -70,18 +69,20 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 						<Form>
 							<Item>
 								<Icon active name='md-cube' style={styles.icon} />
-								<Input style={{ height: 70 }} placeholder={'Category name'} onChangeText={this.handleCategoryNameInputChanged} value={category.name} />
+								<Input disabled={isReadonly} style={{ height: 70 }} placeholder={'Category name'} onChangeText={this.handleCategoryNameInputChanged} value={category.name} />
 							</Item>
 							<Item>
 								<Icon active name='md-help-circle' style={[styles.icon, { marginRight: 6 }]} />
 								<Row style={{ height: 70, alignItems: 'center' }}>
 									<Text style={{ marginRight: 5 }}>Income</Text>
 									<Radio
+										disabled={isReadonly}
 										selected={category.type === 'income'}
 										style={{ marginRight: 20 }}
 										onPress={() => { this.handleCategoryTypeRadioPressed('income') }} />
 									<Text style={{ marginRight: 5 }}>Expense</Text>
 									<Radio
+										disabled={isReadonly}
 										selected={category.type === 'expense'}
 										onPress={() => { this.handleCategoryTypeRadioPressed('expense') }} />
 								</Row>

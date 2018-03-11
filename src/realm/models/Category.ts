@@ -15,5 +15,5 @@ export default class Transaction {
   name: string;
   icon: string;
   type: string;
-  isDefault: string;
+  isDefault: boolean;
 }
