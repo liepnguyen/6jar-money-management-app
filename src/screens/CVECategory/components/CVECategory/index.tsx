@@ -1,10 +1,9 @@
 import * as React from "react";
 import {
 	Container, Header, Title, Content, Button, Icon,
-	Left, Right, Body, Form, View, Item, Input, Row, Col, Text, Radio,
+	Left, Right, Body, Form, View, Item, Input, Row, Col, Text, Radio, IconNB,
 } from "native-base";
 import { CVE_SCREEN_MODES } from '../../../../constants';
-import { Alert } from 'react-native';
 
 import styles from "./styles";
 
@@ -17,11 +16,20 @@ export interface Props {
 	onDeleteCategory: (categoryId: string) => void;
 	isReadonly: boolean;
 }
-export interface State { }
+export interface State {
+	categoryNameInputHasError: boolean;
+}
 class CategoriesPage extends React.PureComponent<Props, State> {
 	static defaultProps = {
 		category: {},
 		isReadonly: false,
+	}
+
+	constructor(props, context) {
+		super(props, context);
+		this.state = {
+			categoryNameInputHasError: false,
+		}
 	}
 
 	handleCategoryNameInputChanged = (name) => {
@@ -35,10 +43,15 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 	handleDeleteCategory = () => {
 		const { category: { id }, onDeleteCategory } = this.props;
 		onDeleteCategory(id);
-  }
+	}
+
+	handleSaveButtonPressed = () => {
+		const { onSaveButtonPressed } = this.props;
+		onSaveButtonPressed();
+	}
 
 	render() {
-		const { onGoBackButtonPressed, onSaveButtonPressed, category, mode, isReadonly } = this.props;
+		const { onGoBackButtonPressed, category, mode, isReadonly } = this.props;
 		return (
 			<Container style={styles.container}>
 				<Header>
@@ -50,26 +63,36 @@ class CategoriesPage extends React.PureComponent<Props, State> {
 					<Body style={{ flex: 3 }}>
 						<Title>Category</Title>
 					</Body>
-					<Right />
-					<Right>
-						{
-							mode === CVE_SCREEN_MODES.VIEW ?
-								<Button transparent onPress={this.handleDeleteCategory}>
-									<Icon active name="md-trash" />
+					{
+						!isReadonly ? (
+							<Right>
+								{
+									mode === CVE_SCREEN_MODES.VIEW ?
+										<Button transparent onPress={this.handleDeleteCategory}>
+											<Icon active name="md-trash" />
+										</Button>
+										: null
+								}
+								<Button transparent onPress={this.handleSaveButtonPressed}>
+									<Icon active name="md-checkmark" />
 								</Button>
-								: null
-						}
-						<Button transparent onPress={onSaveButtonPressed}>
-							<Icon active name="md-checkmark" />
-						</Button>
-					</Right>
+							</Right>
+						) : (
+							<Right>
+								<Button transparent>
+									<Icon active name="md-eye" />
+								</Button>
+							</Right>
+						)
+					}
 				</Header>
 				<Content padder>
 					<View style={{ flex: 1 }}>
 						<Form>
-							<Item>
+							<Item error={this.state.categoryNameInputHasError}>
 								<Icon active name='md-cube' style={styles.icon} />
 								<Input disabled={isReadonly} style={{ height: 70 }} placeholder={'Category name'} onChangeText={this.handleCategoryNameInputChanged} value={category.name} />
+								{this.state.categoryNameInputHasError ? <IconNB name="ios-close-circle" /> : null}
 							</Item>
 							<Item>
 								<Icon active name='md-help-circle' style={[styles.icon, { marginRight: 6 }]} />

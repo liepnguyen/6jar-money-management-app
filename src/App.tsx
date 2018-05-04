@@ -15,6 +15,7 @@ import CVECategory from './screens/CVECategory';
 import SelectCategory from './screens/SelectCategory';
 import SelectJar from './screens/SelectJar';
 import EnterAmount from './screens/EnterAmount';
+import JarAdjustment from "./screens/JarAdjustment";
 
 const Drawer = DrawerNavigator(
 	{
@@ -38,6 +39,7 @@ const App = StackNavigator(
 		SelectJar: { screen: SelectJar },
 		Categories: { screen: Categories },
 		CVECategory: { screen: CVECategory },
+		JarAdjustment: { screen: JarAdjustment },
 	},
 	{
 		initialRouteName: "Login",

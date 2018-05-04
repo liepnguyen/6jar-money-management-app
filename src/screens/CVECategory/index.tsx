@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import { Alert } from 'react-native';
+import { trim, isEmpty } from 'lodash';
 import CVECategory from './components/CVECategory';
 import { categorySelector } from "./selectors";
 import { changeFormValue, saveCategoryAsync, setupNewCategory, deleteCategoryAsync, clearState } from './actions';
@@ -45,8 +46,13 @@ class CVECategoryContainer extends React.PureComponent<Props, State> {
   }
 
   validateCategoryBeforeSave = (category) => {
-    if (category.isDefault) {
-      showWarningMessage('Can not edit a default category');
+    const { name, id } = category;
+    if (isEmpty(trim(name))) {
+      showWarningMessage('Category name can not be empty');
+      return false;
+    }
+    if (categoryService.isNameDuplicated(id, name)) {
+      showWarningMessage('Duplicate category name, please enter another');
       return false;
     }
     return true;
@@ -61,11 +67,7 @@ class CVECategoryContainer extends React.PureComponent<Props, State> {
   }
 
   validateCategoryBeforeDelete = (category) => {
-    const { id } = category;
-    if (category.isDefault) {
-      showWarningMessage('Can not delete a default category');
-      return false;
-    }
+    const { id, name } = category;
     if (categoryService.hasAnyAssociatedTransaction(id)) {
       showWarningMessage('Can not delete an in use category');
       return false;

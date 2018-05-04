@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { keyBy } from 'lodash';
+import { keyBy, orderBy } from 'lodash';
 import { Category } from '../../../realm/models';
 import { createRealmQueryableSelector } from '../../../utils/realm/reselect';
 
@@ -8,7 +8,7 @@ export const categoryQuerySelector = createRealmQueryableSelector(Category, (cat
 });
 
 export const categoriesSelector = createSelector(categoryQuerySelector, (categoryQuery) => {
-  return categoryQuery.map(c => c);
+  return orderBy(categoryQuery.map(c => c), ['name'], ['asc']);
 });
 
 export const categoryByIdSelector = createSelector(categoriesSelector, (categories) => {

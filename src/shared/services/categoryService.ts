@@ -8,8 +8,8 @@ class CategoryService {
     return this.realm.objects(Transaction).filtered('categoryId = $0', categoryId).length > 0;
   }
 
-  isDefault = (categoryId: string): boolean => {
-    return this.realm.objectForPrimaryKey<Category>(Category, categoryId).isDefault;
+  isNameDuplicated = (categoryId: string, categoryName: string): boolean => {
+    return this.realm.objects(Category).filtered('id != $0 && name = $1', categoryId, categoryName).length > 0;
   }
 }
 

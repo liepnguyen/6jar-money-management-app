@@ -17,7 +17,6 @@ const saveCategoryEpic = (action$: ActionsObservable<any>) => {
         if (persistedCategory) {
           merge(persistedCategory, category);
         } else {
-          console.log('create new category')
           persistedCategory = realm.create(Category, {
             ...category,
             createdTimestamp: moment().valueOf(),

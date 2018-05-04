@@ -37,7 +37,7 @@ export default function seed(realm: Realm) {
     const categoryById = keyBy(realm.objects<Category>(Category).map(cat => cat), 'id');
     const categoryIds = keys(categoryById);
     const jarIds = realm.objects<Jar>(Jar).map(j => j.id);
-    range(0, 0).forEach(() => {
+    range(0, 100000).forEach(() => {
       const category = categoryById[categoryIds[random(0, categoryIds.length - 1)]];
       realm.create(Transaction, {
         id: uuid.v4(),

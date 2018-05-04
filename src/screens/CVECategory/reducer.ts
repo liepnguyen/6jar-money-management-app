@@ -27,9 +27,7 @@ export default function (state = initialState, action) {
 		}
 		case clearState.START: {
 			return update(state, {
-				$set: {
-					category: {}
-				}
+				$set: initialState,
 			});
 		}
 		default:

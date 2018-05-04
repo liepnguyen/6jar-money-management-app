@@ -19,6 +19,16 @@ const routes = [
 		icon: "md-cube"
 	},
 	{
+		route: "Transfer",
+		caption: "Transfer",
+		icon: "md-swap"
+	},
+	{
+		route: "JarAdjustment",
+		caption: "Jar Adjustment",
+		icon: "md-options"
+	},
+	{
 		route: "Statistics",
 		caption: "Statistics",
 		icon: "md-stats"
